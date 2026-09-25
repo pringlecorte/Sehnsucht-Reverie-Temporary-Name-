@@ -245,6 +245,7 @@ Ending with his messages of his friends actually texting him in secret. They com
 
 maybe from the start of the game, i establish the mc as an anime hater and him and his friends are talm bout an anime and in the middel of the game, theres a hidden choice to "watch anime to try to know mroe about it" and it may not greatly affect the main game but if u chose this, an extra ending unlocks showing another equence showing how anime actually greatly affected his life to be better for others not in the usual way but in a romantic way. the others being his future love (specific part of the game lol)
 
+what if i go ahead and be evil and make it about 2 kids but its revealed in the end that one of them actually died and the other is grieving...nahh nvm
 
 
 
