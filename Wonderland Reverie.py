@@ -196,10 +196,7 @@ class Player:
 
 player = Player()
 
-obstaclex = []
-obstacley = []
-obstaclez = []
-obstaclewidth = []
+obstacle = []
 
 class Obstacles():
     def __init__(self, x, z, widtha, heighta):
@@ -215,18 +212,15 @@ class Obstacles():
         self.heighta = self.height * self.z
         self.widtha = self.width * self.z
 
-        obstaclex.append(self.x)
-        obstacley.append(self.y)
-        obstaclez.append(self.z)
-        obstaclewidth.append(self.widtha)
+        obstacle.append(self)
 
 
 
     def render(self):
         pygame.draw.rect(Screen, (200*(self.z/5),200*(self.z/5), 200*(self.z/5)), (self.x, self.y, self.widtha, self.heighta))
 
-fan = Obstacles(100, 4, 100, 20)
-    
+fan = Obstacles(100, 4, 20, 20)
+wall = Obstacles(300, 2, 50, 50)
 
 
 class QuintessentialQuintuplets():
@@ -261,55 +255,23 @@ class QuintessentialQuintuplets():
 
             self.active = False
 
+        def simplicityatitsfinest(self):
+                    for obs in obstacle:
+                                if (obs.z - 0.1 <= self.futurez <= obs.z + 0.1) and (obs.x <= self.futurex <= obs.x + obs.widtha):
+                                        self.x1 = abs(self.x - obs.x)
+                                        self.x2 = abs(self.x - (obs.x + obs.widtha))
 
-        def patharound(self):
-            if (self.z - self.dz < 0):
-                self.futurex, self.futurey, self.futurez = grow(self.x, self.y, self.z)
+                                        if self.x1 < self.x2:
+                                            self.dx = obs.x - 10
+                                        else:   
+                                            self.dx = obs.x + obs.widtha + 10
 
-                for oz in obstaclez:
-                    for ox in obstaclex:
-                        for widthh in obstaclewidth:
-                            if oz - 0.1 <= self.futurez <= oz + 0.1 and not self.active and (ox <= self.futurex <= ox + widthh):
-                                    self.x1 = abs(self.x - ox)
-                                    self.x2 = abs(self.x - (ox + widthh))
-
-                                    if self.x1 < self.x2:
-                                        self.dx = ox - 10
-                                    else:
-                                        self.dx = ox + width + 10
-
-            elif (self.z - self.dz >= 0):
-                self.futurex, self.futurey, self.futurez = shrink(self.x, self.y, self.z)
-
-                for oz in obstaclez:
-                    for ox in obstaclex:
-                        for widthh in obstaclewidth:
-                            if oz - 0.1 <= self.futurez <= oz + 0.1  and not self.active and (ox <= self.futurex <= ox + widthh):
-                                    self.x1 = abs(self.x - ox)
-                                    self.x2 = abs(self.x - (ox + widthh))
-
-                                    if self.x1 < self.x2:
-                                        self.dx = ox - 10
-                                    else:
-                                        self.dx = ox + width + 10
-
-            print(self.dx)
-
+                                        self.futurex, self.futurey, self.futurez = self.x, self.y, self.z
+                        
+                    self.x, self.y, self.z = self.futurex, self.futurey, self.futurez
             
 
 
-            #self.target = self.x
-
-            #if self.x1 < self.x2:
-            #    self.targetx = x
-            #else:
-            #    self.targetx = x - (x + widtho)
-
-            #if self.z 
-            #self.active = True
-            #self.aitracking(self.targetx)
-           
-            
         def aitracking(self):
             if Loopingtherooms % self.responsiveness == 0:
                     self.dx = random.uniform(player.x - self.thresholdsx, player.x + self.thresholdsx)
@@ -320,40 +282,13 @@ class QuintessentialQuintuplets():
                 if (self.z - self.dz < 0):
                     self.futurex, self.futurey, self.futurez = grow(self.x, self.y, self.z)
 
-                    for oz in obstaclez:
-                        for ox in obstaclex:
-                            for widthh in obstaclewidth:
-                                if oz - 0.5 <= self.futurez <= oz + 0.5 and (ox <= self.futurex <= ox + widthh):
-                                        self.x1 = abs(self.x - ox)
-                                        self.x2 = abs(self.x - (ox + widthh))
-
-                                        if self.x1 < self.x2:
-                                            self.dx = ox - 10
-                                        else:
-                                            self.dx = ox + width + 10
-
-                                        self.futurex, self.futurey, self.futurez = self.x, self.y, self.z
+                    self.simplicityatitsfinest()
                             
-                        self.x, self.y, self.z = self.futurex, self.futurey, self.futurez
 
                 elif (self.z - self.dz >= 0):
                     self.futurex, self.futurey, self.futurez = shrink(self.x, self.y, self.z)
 
-                    for oz in obstaclez:
-                        for ox in obstaclex:
-                            for widthh in obstaclewidth:
-                                if oz - 0.5 <= self.futurez <= oz + 0.5 and (ox <= self.futurex <= ox + widthh):
-                                        self.x1 = abs(self.x - ox)
-                                        self.x2 = abs(self.x - (ox + widthh))
-
-                                        if self.x1 < self.x2:
-                                            self.dx = ox - 10
-                                        else:   
-                                            self.dx = ox + width + 10
-
-                                        self.futurex, self.futurey, self.futurez = self.x, self.y, self.z
-                        
-                    self.x, self.y, self.z = self.futurex, self.futurey, self.futurez
+                    self.simplicityatitsfinest()
 
 
             if not(self.dx - 1 <= self.x <= self.dx + 1):
@@ -413,7 +348,7 @@ Yotsuba = QuintessentialQuintuplets(width*3/4, height/2, 1, 10, 1, 0.1, 0.70, 11
 Itsuki = QuintessentialQuintuplets(width, height/2, 1, 20, 10, 1, 0.35, 239, 35, 60)    
 
 Sisters = [Ichika, Nino, Miku, Yotsuba, Itsuki]
-Entities = [Ichika, Nino, Miku, Yotsuba, Itsuki, player, fan]
+Entities = [Ichika, Nino, Miku, Yotsuba, Itsuki, player, fan, wall]
 
 class achievements:
     def __init__(self):
@@ -501,8 +436,6 @@ while True:
     for name in renderorder:
         if name in Sisters:
             name.aitracking()
-            #name.patharound()
-            
         name.render()
 
 
