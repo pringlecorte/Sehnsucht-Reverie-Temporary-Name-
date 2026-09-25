@@ -196,6 +196,37 @@ class Player:
 
 player = Player()
 
+obstaclex = []
+obstacley = []
+obstaclez = []
+obstaclewidth = []
+
+class Obstacles():
+    def __init__(self, x, z, widtha, heighta):
+        self.x = x
+        self.y = height/2
+        self.z = z
+        if self.z > 5:
+            self.z = 5
+        self.width = widtha
+        self.height = heighta
+
+        #for future me, if u want moving objects just put this part down into render
+        self.heighta = self.height * self.z
+        self.widtha = self.width * self.z
+
+        obstaclex.append(self.x)
+        obstacley.append(self.y)
+        obstaclez.append(self.z)
+        obstaclewidth.append(self.widtha)
+
+
+
+    def render(self):
+        pygame.draw.rect(Screen, (200*(self.z/5),200*(self.z/5), 200*(self.z/5)), (self.x, self.y, self.widtha, self.heighta))
+
+fan = Obstacles(100, 4, 100, 20)
+    
 
 
 class QuintessentialQuintuplets():
@@ -223,21 +254,109 @@ class QuintessentialQuintuplets():
 
             self.velocity = 0
             self.juke = False
+
+            self.futurex = self.x
+            self.futurey = self.y
+            self.futurez = self.z
+
+            self.active = False
+
+
+        def patharound(self):
+            if (self.z - self.dz < 0):
+                self.futurex, self.futurey, self.futurez = grow(self.x, self.y, self.z)
+
+                for oz in obstaclez:
+                    for ox in obstaclex:
+                        for widthh in obstaclewidth:
+                            if oz - 0.1 <= self.futurez <= oz + 0.1 and not self.active and (ox <= self.futurex <= ox + widthh):
+                                    self.x1 = abs(self.x - ox)
+                                    self.x2 = abs(self.x - (ox + widthh))
+
+                                    if self.x1 < self.x2:
+                                        self.dx = ox - 10
+                                    else:
+                                        self.dx = ox + width + 10
+
+            elif (self.z - self.dz >= 0):
+                self.futurex, self.futurey, self.futurez = shrink(self.x, self.y, self.z)
+
+                for oz in obstaclez:
+                    for ox in obstaclex:
+                        for widthh in obstaclewidth:
+                            if oz - 0.1 <= self.futurez <= oz + 0.1  and not self.active and (ox <= self.futurex <= ox + widthh):
+                                    self.x1 = abs(self.x - ox)
+                                    self.x2 = abs(self.x - (ox + widthh))
+
+                                    if self.x1 < self.x2:
+                                        self.dx = ox - 10
+                                    else:
+                                        self.dx = ox + width + 10
+
+            print(self.dx)
+
+            
+
+
+            #self.target = self.x
+
+            #if self.x1 < self.x2:
+            #    self.targetx = x
+            #else:
+            #    self.targetx = x - (x + widtho)
+
+            #if self.z 
+            #self.active = True
+            #self.aitracking(self.targetx)
+           
+            
         def aitracking(self):
-                if Loopingtherooms % self.responsiveness == 0:
+            if Loopingtherooms % self.responsiveness == 0:
                     self.dx = random.uniform(player.x - self.thresholdsx, player.x + self.thresholdsx)
                     self.dz = random.uniform(player.z - self.thresholdsz, player.z + self.thresholdsz) 
             #
             #print(self.dx)
-                if not (self.dz - 0.1  <= self.z <= self.dz + 0.1):
-                    if (self.z - self.dz < 0):
-                         self.x, self.y, self.z = grow(self.x, self.y, self.z)
+            if not (self.dz - 0.1  <= self.z <= self.dz + 0.1):
+                if (self.z - self.dz < 0):
+                    self.futurex, self.futurey, self.futurez = grow(self.x, self.y, self.z)
 
-                    elif (self.z - self.dz > 0):
-                        self.x, self.y, self.z = shrink(self.x, self.y, self.z)
+                    for oz in obstaclez:
+                        for ox in obstaclex:
+                            for widthh in obstaclewidth:
+                                if oz - 0.5 <= self.futurez <= oz + 0.5 and (ox <= self.futurex <= ox + widthh):
+                                        self.x1 = abs(self.x - ox)
+                                        self.x2 = abs(self.x - (ox + widthh))
+
+                                        if self.x1 < self.x2:
+                                            self.dx = ox - 10
+                                        else:
+                                            self.dx = ox + width + 10
+
+                                        self.futurex, self.futurey, self.futurez = self.x, self.y, self.z
+                            
+                        self.x, self.y, self.z = self.futurex, self.futurey, self.futurez
+
+                elif (self.z - self.dz >= 0):
+                    self.futurex, self.futurey, self.futurez = shrink(self.x, self.y, self.z)
+
+                    for oz in obstaclez:
+                        for ox in obstaclex:
+                            for widthh in obstaclewidth:
+                                if oz - 0.5 <= self.futurez <= oz + 0.5 and (ox <= self.futurex <= ox + widthh):
+                                        self.x1 = abs(self.x - ox)
+                                        self.x2 = abs(self.x - (ox + widthh))
+
+                                        if self.x1 < self.x2:
+                                            self.dx = ox - 10
+                                        else:   
+                                            self.dx = ox + width + 10
+
+                                        self.futurex, self.futurey, self.futurez = self.x, self.y, self.z
+                        
+                    self.x, self.y, self.z = self.futurex, self.futurey, self.futurez
 
 
-                if not(self.dx - 1 <= self.x <= self.dx + 1):
+            if not(self.dx - 1 <= self.x <= self.dx + 1):
                     if (self.x - self.dx < 0):
                          self.Right = 1
 
@@ -254,16 +373,12 @@ class QuintessentialQuintuplets():
 
                         self.x += self.velocity  * self.z
 
-                if self.x < 0:
+            if self.x < 0:
                     self.x = width
                     self.juke = True
-                elif self.x >= width:
+            elif self.x >= width:
                     self.x = 0
                     self.juke = True
-
-
-                    
-
     
             
         def render(self):
@@ -291,13 +406,14 @@ class QuintessentialQuintuplets():
             #print(f"B {self.B}")
             pygame.draw.rect(Screen, (self.newR, self.newG, self.newB), (self.x, self.y - self.heighta, self.widtha, self.heighta))
 
-Ichika = QuintessentialQuintuplets(0/width, height/2, 1, 16, 20, 0.1, 0.90, 200, 200, 0)
+Ichika = QuintessentialQuintuplets(0/width, height/2, 1, 16, 20, 0.1, 0.65, 200, 200, 0)
 Nino = QuintessentialQuintuplets(width/4, height/2, 1, 20, 25, 0.2, 0.45, 247, 37, 133)
 Miku = QuintessentialQuintuplets(width/2, height/2, 1, 10, 10, 0.05, 0.55, 72, 149, 239)
-Yotsuba = QuintessentialQuintuplets(width*3/4, height/2, 1, 10, 1, 0.1, 1, 112, 224, 0)
-Itsuki = QuintessentialQuintuplets(width, height/2, 1, 20, 10, 1, 0.35, 239, 35, 60)                
+Yotsuba = QuintessentialQuintuplets(width*3/4, height/2, 1, 10, 1, 0.1, 0.70, 112, 224, 0)
+Itsuki = QuintessentialQuintuplets(width, height/2, 1, 20, 10, 1, 0.35, 239, 35, 60)    
 
-Sisters_AndYou = [Ichika, Nino, Miku, Yotsuba, Itsuki, player]
+Sisters = [Ichika, Nino, Miku, Yotsuba, Itsuki]
+Entities = [Ichika, Nino, Miku, Yotsuba, Itsuki, player, fan]
 
 class achievements:
     def __init__(self):
@@ -312,6 +428,7 @@ class achievements:
             "Pacman":False,
             "Flash":False,
             "WrongKeyE":False,
+            "Order":False
         }
 
     
@@ -347,6 +464,9 @@ class achievements:
 
         if keys.is_pressed("e"):
             self.unlock("WrongKeyE", "Hahaha, Buddy Thought I Was Motivated Enough To Code Something For The E Key")
+
+        if Ichika.z > Nino.z > Miku.z > Yotsuba.z > Itsuki.z:
+            self.unlock("Order", "'Ichi, Ni, Mi, Yotsu, Itsu...' 'PICK A SYSTEM BRO'")
                 
  
         
@@ -374,34 +494,20 @@ while True:
     Screen.fill((0, 0, 0))
     player.controls()
     player.math()
-    
-    #entities_depth = {
-    #    AI.ichika: 'z1',
-    #    AI.nino: 'z2',
-    #    AI.miku: 'z3',
-    #    AI.yotsuba: 'z4',
-    #    AI.itsuki: 'z5',
-    #    player.render: 'z'
-    #}
-    #everyone = [AI.ichika, AI.nino, AI.miku, AI.yotsuba, AI.itsuki, player.render]
-    #order = sorted(everyone, key=lambda rend: getattr(rend.__self__, entities_depth[rend]))
+     
 
-
-    #for enemy in order:
-    #    enemy()
-    
-
-    renderorder = sorted(Sisters_AndYou, key=lambda sister:sister.z)
+    renderorder = sorted(Entities, key=lambda sister:sister.z)
 
     for name in renderorder:
-        if name != player:
+        if name in Sisters:
             name.aitracking()
+            #name.patharound()
+            
         name.render()
 
 
     achieve.checker()
     #gangalicious.moveTo(100,100, 1, tween=gangalicious.easeInOutCirc)
-
+    #print(Yotsuba.targetx)
     Loopingtherooms += 1
-
     pygame.display.update()
