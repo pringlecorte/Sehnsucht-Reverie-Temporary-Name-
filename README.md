@@ -208,3 +208,44 @@ but when the actress goes into a state of reverie, screen will go to a wider one
 
 musical note based comabt? like theone from dr strange multiverse of madness?
 
+
+I dont wanna make another repo so imma put another game concept here (imma pick which game ill make first)
+Tōbun rpg concept 
+(tobun as in divide)
+"Will I transcend someone? Will I ever be the quintessential example?"
+so overall my lore is (copy pasted)
+Possible name: otsukari karegato
+If u rearrange this, u get otsukare arigatou
+
+He is constantly in a state of divide within himself.
+Typa dialogues (one of them only):
+"Bro did u check ur psu??"
+"No the problem is a monitor one…not psu…"
+"Oh right mb i only had 3 hours of sleep (mc had 7 hours and is trying to blame smth else so ppl wont think he just made a dumb mistake) 
+ my story is revolving around the theme "will i ever be better than someone at something?" 
+Mc gets good at things his friends arent good at like pc building and engine shi so that he has "leverage" above them
+its not just 2 ppl. the mc actively compares themself to their close friends (cuz every ppl they meet is just unrealistic). the mc only has knowledge or is good at specific things bc they just want leverage in life not to brag but to feel comfort. but theres always someone better than you right?
+like lets say friend a is a genuinely kind person but he's good at being kind so mc is jealous and wants to be like him because they want to be loved and respected and thought to be as the kind person. im also gonna add to lore wanting to be the definition of a good thing. so u know how characters in cartoons are the definition of the "best" ye im also gonna add that
+the final battle is his original unchanged self that had a much stronger grasp on the one thing his friends doesnt have: himself
+ 
+#might aslo add another bit of lore: the mc is sacrifical and tends to put the others before him but his kindness is rewarded with bad shi making him believe that no good deed will go unpunished. this genuinely makes him question himself if he's actually doing good at what he's good at. 
+#also an aspect of his predates everything. its his core. as a child, the mc used to be very happy, outgoing and was very kind. in fact, to this present day he's very kind and doesn't rage around. he bottles his own rage. but at some point he realised that maybe what he does isnt that great. he sees violent reactions so he became self preserving and cynical. but deep down he wants to make others content so he tells himself he needs to learn this to make other ppl happy and content with having himi might add this but it might be too overwhelming dont u think? or nah
+Prolly wontt add this maybe maybe not
+
+Imma focus on the fact that he wants to be known as the "guy"
+
+Mc is based off intp-t but an entj on the outside
+the tragic thing is that the mc also believes in a contrasting philosophy: "if i cant have it, at least somebody can"
+the main loop is still him wanting to be better but this revelation of the backstory of the mc is shown through one of the sequence in the story following an event that causes him to finally crash out and ppl around him are worried cuz he's not usually like this 
+
+Ending with his messages of his friends actually texting him in secret. They come to him when they need to talk about something important, not academically but when it comes to emotionso r stuff, showing that he is the one friend they think that is teh most reliable and trustworthy
+
+
+maybe from the start of the game, i establish the mc as an anime hater and him and his friends are talm bout an anime and in the middel of the game, theres a hidden choice to "watch anime to try to know mroe about it" and it may not greatly affect the main game but if u chose this, an extra ending unlocks showing another equence showing how anime actually greatly affected his life to be better for others not in the usual way but in a romantic way. the others being his future love (specific part of the game lol)
+
+
+
+
+
+
+
