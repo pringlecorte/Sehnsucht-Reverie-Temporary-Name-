@@ -19,6 +19,8 @@ also dont mind the sister's names, im just using them as placeholders
 Current Ideas in mind (sorry gng if its not good cuz i did these while reviewing for exams and i couldnt wait lol)
 Sehnsucht Reverie
 
+these ideas are lowk buns cuz i cant think of anything good rn lowk
+
 #old script
 "Reverie"
 "Hmm?"
