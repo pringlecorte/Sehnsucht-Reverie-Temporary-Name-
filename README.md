@@ -21,6 +21,8 @@ Sehnsucht Reverie
 
 these ideas are lowk buns cuz i cant think of anything good rn lowk
 
+guess who just finished their exams >:)
+
 #old script
 "Reverie"
 "Hmm?"
