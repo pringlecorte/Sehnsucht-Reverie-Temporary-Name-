@@ -212,6 +212,79 @@ but when the actress goes into a state of reverie, screen will go to a wider one
 
 musical note based comabt? like theone from dr strange multiverse of madness?
 
+#v3
+Central themes ill PROLLY base on
+A Silent Voice
+Redemption
+Self-forgiveness
+Overcoming isolation
+
+Rascal Does Not Dream
+Psychological trauma
+Societal trauma
+Feeling invisible
+Peer pressure
+Self-disgust
+Feeling of being second
+Online rejection/bullying
+Fear of not being able to have a good/long life
+
+Your Name
+Red string of fate/feeling or yearning for soulmate across time and space
+
+The Quintessential Quintuplets
+Individual love/seeing one for who they truly are underneath
+Specifically what matters inside
+
+Zenless Zone Zero
+You are not bound to your past
+Wonderland Reverie
+Freedom to escape societal pressures, even if its not real but at least ur safe in your imagination
+Freedom to escape corporal pressure and kindness
+Staying true to oneself
+
+Dog Man 
+(inspired by Garden of Eden)
+Thou Mayest
+
+Audiophile Territory
+Staying true to oneself
+Perseverance for the preserving/best or the quintessential kind of thing 
+
+Words Bubble Up Like Soda Pop
+Staying authentic
+Overcoming insecurities to express yourself
+
+Step On Me (The Cardigans) (possibly part idk yet)
+Self-sacrifice
+Submission
+Enduring pain in a strained relationship
+
+Weathering With You
+Hah, you thought i would include this movie in, no thanks yo the movie was confusing as hell
+
+5 Centimeters Per Second
+The inevitable fate of 2 people who used to be so close to drift apart, no matter how much they love each other
+
+Enxchacha
+No matter what, where, how, when, why, I will always be there for you
+
+NTSC Color Bandwidth and Fourier Analysis
+Even if i cant give you the color to your life in person, at least let me in secret
+
+Low-End Laptops (my experience with the old intel celeron 3050 i used to have)
+Was i not enough for you…
+
+Current Laptop (intel i5 1155g7 (me putting it to its absolute limits (zzz/blender while having tabs open in the bg)
+To my last fan spin, i will do what you need me to do.
+Thank you for trusting me to do what you want me to do
+Thank you for your hard work
+Never giving up on that one friend
+
+Latte Cookie (crk)/Claret Flint (zzz)
+"I dont care about the meta, i love latte cookie/claret flint for who they are"
+
+
 
 I dont wanna make another repo so imma put another game concept here (imma pick which game ill make first)
 Tōbun rpg concept 
