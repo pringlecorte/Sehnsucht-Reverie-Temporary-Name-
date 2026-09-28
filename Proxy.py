@@ -78,6 +78,9 @@ class Player:
 
                 self.x += self.velocity * self.z
                 self.futurex = self.x
+            else:
+                if self.velocity < -self.speed:
+                    self.velocity += 0.1
         elif keys.is_pressed(self.keyright):
             self.Right = True
 
@@ -91,6 +94,10 @@ class Player:
 
                 self.x += self.velocity * self.z
                 self.futurex = self.x
+            else:
+                if self.velocity > self.speed:
+                    self.velocity -= 0.1
+            
             
             
 
