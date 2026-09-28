@@ -42,11 +42,11 @@ wall = Obstacles(300, 2, 50, 50, height, Screen)
 objects = [fan, wall]
 
 
-Ichika =  QuintessentialQuintuplets(0/width, height/2, 1, 15, 15, 0.3, 0.85, 200, 200, 0, Screen, width, height)
-Nino =    QuintessentialQuintuplets(width/4, height/2, 1, 20, 25, 0.3, 0.65, 247, 37, 133,  Screen, width, height, traits={"tsundere":True})
-Miku =    QuintessentialQuintuplets(width/2, height/2, 1, 10, 5, 0.05, 0.75, 72, 149, 239, Screen, width, height, traits={"shy":True})
-Yotsuba = QuintessentialQuintuplets(width*3/4, height/2, 1, 13, 10, 0.2, 1, 112, 224, 0,  Screen, width, height, traits={"athletic":True})
-Itsuki =  QuintessentialQuintuplets(width, height/2, 1, 5, 19, 0.5, 0.55, 239, 35, 60, Screen, width, height, traits={"fatso":True, "hungry":True})    
+Ichika =  QuintessentialQuintuplets(0, height/2, 1, 15, 15, 0.3, 0.85, 0.05, 200, 200, 0, Screen, width, height)
+Nino =    QuintessentialQuintuplets(width/4, height/2, 1, 20, 25, 0.3, 0.70, 0.035, 247, 37, 133,  Screen, width, height, traits={"tsundere":True})
+Miku =    QuintessentialQuintuplets(width/2, height/2, 1, 10, 5, 0.05, 0.75, 0.055, 72, 149, 239, Screen, width, height, traits={"shy":True, "loved":True})
+Yotsuba = QuintessentialQuintuplets(width*3/4, height/2, 1, 13, 10, 0.2, 1, 0.1, 112, 224, 0,  Screen, width, height, traits={"athletic":True})
+Itsuki =  QuintessentialQuintuplets(width, height/2, 1, 5, 19, 0.3, 0.65, 0.065, 239, 35, 60, Screen, width, height, traits={"fatso":True, "hungry":True})    
 
 Sisters = [Ichika, Nino, Miku, Yotsuba, Itsuki]
 Entities = Sisters + objects + players
@@ -54,8 +54,9 @@ Entities = Sisters + objects + players
 from achievements import achievements
 
 achieve = achievements()
-
-
+npc_number = 0
+npc_name = "npc#"
+Warriors =[]
 while True:
     refresh.tick(RefreshRate)
     now = pygame.time.get_ticks()
@@ -74,18 +75,19 @@ while True:
 
     for p in players:
         p.controls()
-        p.math()
+        p.math(Itsuki)
      
 
     renderorder = sorted(Entities, key=lambda sister:sister.z)
 
     for name in renderorder:
-        if name in Sisters:
+        if name in Sisters or name in Warriors:
             if Active_food:
                 name.aitracking(player, objects, Active_food[0])
             else:
                 name.aitracking(player,objects)
-                  
+
+        
         name.render()
 
 
@@ -111,9 +113,18 @@ while True:
             remove_food = Active_food.pop(0)
             if remove_food in Entities:
                 Entities.remove(remove_food)
+
+    if Miku.summon:
+        npc_number += 1
+        npc_actualname = npc_name + str(npc_number)
+        npc_actualname = QuintessentialQuintuplets(Miku.x, Miku.y, Miku.z, 10, 5, 0.05, 0.75, 0.055, 72, 100, 249, Screen, width, height, widtho=width/384, heighto= height/72)
+        Entities.append(npc_actualname)
+        Warriors.append(npc_actualname)
+        Miku.summon = False
+        
                
                 
 
-    print(Itsuki.Loopingtherooms % 500)
+    print(Itsuki.velocity)
     #print(Itsuki.doneating)
     pygame.display.update()
