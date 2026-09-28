@@ -3,7 +3,7 @@ import random
 from resize import grow, shrink
 
 class QuintessentialQuintuplets():
-        def __init__(self, x, y, z, responsiveness, thresholdsx, thresholdsz, speed, R, G, B, Screen, width, height, traits=None):
+        def __init__(self, x, y, z, responsiveness, thresholdsx, thresholdsz, speed, acceleration, R, G, B, Screen, width, height, traits=None):
             self.traits = traits if traits is not None else {}
 
             self.shy = self.traits.get("shy", False)
@@ -29,6 +29,7 @@ class QuintessentialQuintuplets():
             self.thresholdsx = thresholdsx
             self.thresholdsz = thresholdsz
             self.speed = speed
+            self.acceleration = acceleration
 
             self.dz = self.z
             self.dx = self.x
@@ -63,6 +64,8 @@ class QuintessentialQuintuplets():
 
             self.meatbun = None
             self.doneating = False
+
+        
         def simplicityatitsfinest(self, obstacle):
                     for obs in obstacle:
                                 if (obs.z - 0.1 <= self.futurez <= obs.z + 0.1) and (obs.x <= self.futurex <= obs.x + obs.widtha):
@@ -105,7 +108,7 @@ class QuintessentialQuintuplets():
                      self.Right = 1
 
                      if self.velocity <= self.speed:
-                        self.velocity += 0.05
+                        self.velocity += self.acceleration
 
         
                          
@@ -113,7 +116,7 @@ class QuintessentialQuintuplets():
                     self.Right = -1
 
                     if self.velocity >= -self.speed:
-                        self.velocity -= 0.05
+                        self.velocity -= self.acceleration
 
             #personality check
 
@@ -135,7 +138,7 @@ class QuintessentialQuintuplets():
                     self.velocity *= 1/1.2
 
             if self.fatso:
-                self.velocity *= 1/1.1
+                self.velocity *= 1/1.2
 
             if self.tsundere:
                 if self.Loopingtherooms % self.responsiveness == 0:
