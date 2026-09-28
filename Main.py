@@ -62,7 +62,7 @@ Warrior_Dialogues = ["I WILL FIGHT FOR MIKU",
                      "Oh hey bob, u a miku  fan too??", 
                      "MIKU IS THE BEST QUINTESSENTIAL QUINTUPLET", 
                      "..with the sole exception of-- SHUT UP, NINO IS NOT THE SOLE EXCEPTION", 
-                     "i love femboys but no one will know"
+                     "i love femboys but no one will know",
                      "Miku is soo cute",
                      "Hi lol (will it work?)",
                      "Yoo mike, u a fan of miku??",
@@ -74,7 +74,22 @@ Warrior_Dialogues = ["I WILL FIGHT FOR MIKU",
                      "I don't think this is the Hatsune Miku fan club",
                      "0 episodes, 100 edits, larp is free but not for Miku",
                      "Miku's food taste so good!!",
-                     "I HEART MIKU",]
+                     "I HEART MIKU",
+                     "Fuutarou shoulda chosen Miku :((",
+                     "But would Fuutarou be truly happy if it were Miku?",
+                     "HEY NO SPOILERS",
+                     "i REALLY love femboys",
+                     "Im thinking Miku Miku oo-eee-oo",
+                     "Ain't miku a vocaloid",
+                     "She does NOT have twin tails",
+                     "SHUT UP LARPERS, THIS THE REAL MIKU",
+                     "...with the sole exception of Nakano Nin--SHUT UPPP",
+                     "I can recite every single line of Miku's part in gotoubun no kimochi...'Futarou!!', 'Mittsu massugu na kono kimochi'...",
+                     "WHO HAS THE WS990BT I NEED IT",
+                     "FOR MIKU I WILL DO MY ASSIGNMENTS",
+                     "FOR MIKU I WILL DO MY WORK",
+                     "MIKUTEACHESEVERYTHING IS SO GOATED"
+                     "HIIIII MIKUUUU"]
 while True:
     refresh.tick(RefreshRate)
     now = pygame.time.get_ticks()
