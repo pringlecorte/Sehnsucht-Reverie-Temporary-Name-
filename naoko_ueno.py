@@ -30,6 +30,8 @@ class QuintessentialQuintuplets():
             self.thresholdsz = thresholdsz
             self.speed = speed
 
+            self.dz = self.z
+            self.dx = self.x
 
             self.widtha = self.widthb*self.z
             self.heighta = self.heightb*self.z 
@@ -46,18 +48,21 @@ class QuintessentialQuintuplets():
             self.futurez = self.z
 
             self.active = False
-            self.Loopingtherooms = 0
+            self.Loopingtherooms = 1
 
             self.screen_width = width
             self.ScreenDisplay = Screen
             self.screen_height = height
 
             self.jump = False
-            self.maxjumph = 5
+            self.maxjumph = 8
 
             self.basex = self.x
             self.basey = self.y
             self.basez = self.z
+
+            self.meatbun = None
+            self.doneating = False
         def simplicityatitsfinest(self, obstacle):
                     for obs in obstacle:
                                 if (obs.z - 0.1 <= self.futurez <= obs.z + 0.1) and (obs.x <= self.futurex <= obs.x + obs.widtha):
@@ -75,12 +80,12 @@ class QuintessentialQuintuplets():
             
 
 
-        def aitracking(self, player, obstacle):
+        def aitracking(self, player, obstacle, itsukisweakness=None):
             if self.Loopingtherooms % self.responsiveness == 0:
                     self.dx = random.uniform(player.futurex - self.z*self.thresholdsx, player.futurex + self.z*self.thresholdsx)
                     self.dz = random.uniform(player.futurez - self.z*self.thresholdsz, player.futurez + self.z*self.thresholdsz) 
 
-            self.personality_intercept(player)
+            self.personality_intercept(player, itsukisweakness)
             #print(self.dx)
             if not (self.dz - 0.1  <= self.z <= self.dz + 0.1):
                 if (self.z - self.dz < 0):
@@ -122,8 +127,9 @@ class QuintessentialQuintuplets():
             elif self.x > self.screen_width:
                 self.x = 0
     
-        def personality_intercept(self, player):
-        
+        def personality_intercept(self, player, eatsuki):
+            self.meatbun = eatsuki if eatsuki is not None else 0
+            
             if self.shy:
                 if abs(self.x - self.dx) < 20 * self.z:
                     self.velocity *= 1/1.2
@@ -149,15 +155,16 @@ class QuintessentialQuintuplets():
                     self.y -= 0.00000001
                     self.jump = True
 
+                    
             if self.jump:  
                 self.dx = player.futurex
                 self.dz = player.futurez          
                 if self.y < self.basey:
                     self.y -= self.y_vel * self.z
-                    self.y_vel -= self.maxjumph/10
+                    self.y_vel -= self.maxjumph/20
 
                   
-                    self.x += ((player.futurex - self.x) * self.z)/(self.maxjumph*2/(self.maxjumph/10))
+                    self.x += ((player.futurex - self.x) * self.z)/(self.maxjumph*2/(self.maxjumph/20))
                     
                     if self.z < player.futurez:
                         self.x, self.y, self.z = grow(self.x, self.y, self.z)
@@ -180,6 +187,22 @@ class QuintessentialQuintuplets():
                 if abs(self.x - player.futurex) < 5 * self.z:
                     self.velocity *= 1/1.2
             
+
+            if self.hungry:
+                if eatsuki:
+                    self.dx = self.meatbun.x
+                    self.dz = self.meatbun.z
+
+                if self.dx - 5 <= self.x <= self.dx + 5 and self.dz - 0.5 <= self.z <= self.dz + 0.5: 
+                    if self.Loopingtherooms % 500 != 0 and not self.doneating:
+                        if eatsuki:
+                            self.dx = self.meatbun.x
+                            self.dz = self.meatbun.z
+                        self.doneating = False
+                        print("eating")
+                    elif self.Loopingtherooms % 500 == 0:
+                        self.doneating = True
+                        print("done")
                     
                  
             
