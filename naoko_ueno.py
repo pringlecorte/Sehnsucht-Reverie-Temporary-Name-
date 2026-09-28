@@ -3,7 +3,7 @@ import random
 from resize import grow, shrink
 
 class QuintessentialQuintuplets():
-        def __init__(self, x, y, z, responsiveness, thresholdsx, thresholdsz, speed, acceleration, R, G, B, Screen, width, height, traits=None):
+        def __init__(self, x, y, z, responsiveness, thresholdsx, thresholdsz, speed, acceleration, R, G, B, Screen, width, height, widtho=None, heighto=None, traits=None,):
             self.traits = traits if traits is not None else {}
 
             self.shy = self.traits.get("shy", False)
@@ -15,7 +15,7 @@ class QuintessentialQuintuplets():
             self.distracted = self.traits.get("distracted", False)
             self.fatso = self.traits.get("fatso", False)
             self.dangerous = self.traits.get("dangerous", False)
-    
+            self.loved = self.traits.get("loved", False)
 
             #THE QUINTESSENTIAL QUINTUPLETS
             self.x = x
@@ -24,6 +24,11 @@ class QuintessentialQuintuplets():
 
             self.widthb = width/192
             self.heightb = height/36
+
+            if widtho:
+                self.widthb = widtho
+            if heighto:
+                self.heightb = heighto
 
             self.responsiveness = responsiveness
             self.thresholdsx = thresholdsx
@@ -65,7 +70,7 @@ class QuintessentialQuintuplets():
             self.meatbun = None
             self.doneating = False
 
-        
+            self.summon = False
         def simplicityatitsfinest(self, obstacle):
                     for obs in obstacle:
                                 if (obs.z - 0.1 <= self.futurez <= obs.z + 0.1) and (obs.x <= self.futurex <= obs.x + obs.widtha):
@@ -206,6 +211,10 @@ class QuintessentialQuintuplets():
                     elif self.Loopingtherooms % 500 == 0:
                         self.doneating = True
                         print("done")
+
+            if self.loved:
+                if self.Loopingtherooms % (15 * random.randint(10,15)) == 0:
+                    self.summon = True
                     
                  
             
