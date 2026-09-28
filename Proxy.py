@@ -175,8 +175,9 @@ class Player:
             self.crouch = False
         #print(self.crouch)
     
-        if Itsuki.x - 1 <= int(self.x) <= Itsuki.x + 1:
-            self.velocity *= 50*Itsuki.velocity
+        if Itsuki.x - Itsuki.thresholdsx <= int(self.x) <= Itsuki.x + Itsuki.thresholdsx and Itsuki.z - Itsuki.thresholdsz <= self.z <= Itsuki.z + Itsuki.thresholdsz:
+            self.velocity *= -(50*abs(Itsuki.velocity) + 10)
+
 
     def render(self):
         self.R = 0
