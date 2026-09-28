@@ -8,7 +8,7 @@ import pyautogui as gangalicious
 from resize import shrink, grow
 
 class Player:
-    def __init__(self, width, height, Screen, up, down, left, right, jump, run, crouch):
+    def __init__(self, width, height, Screen, up, down, left, right, jump, run, crouch, drop):
         #screen width, height, Screen
         self.x = width/3
         self.y = height/2
@@ -43,9 +43,12 @@ class Player:
         self.keyjump = jump
         self.keyrun = run
         self.keycrouch = crouch
+        self.keyattack = drop
 
         self.futurex, self.futurey, self.futurez = self.x, self.y, self.z
-        
+
+        self.isfood = False
+        self.foodwhereabouts = {}
     def controls(self):
         self.Right = False
 
@@ -65,6 +68,7 @@ class Player:
             self.basey += 1.5* (self.z/5)
 
         #print(self.z)
+
         if keys.is_pressed(self.keyleft):
             self.Right = False
             if int(self.velocity) > 0:
@@ -98,8 +102,6 @@ class Player:
                 if self.velocity > self.speed:
                     self.velocity -= 0.1
             
-            
-            
 
         else:
             if self.velocity > 0:
@@ -108,7 +110,6 @@ class Player:
                 self.velocity += 0.075
 
         self.futurex += self.velocity * self.z
-
 
         self.x = self.futurex
 
@@ -128,13 +129,16 @@ class Player:
             #self.time1= -75
             self.y_vel = self.maxjumph 
             self.y -= 0.00000001
-            
+
+        if keys.is_pressed(self.keyattack):
+            self.isfood = True
+
 
     def attack(self):
         if self.attack:
             pass
     
-    def math(self):
+    def math(self, Itsuki):
         if self.jump:            
             if self.y < self.basey:
                 self.futurey -= self.y_vel * self.z
@@ -171,7 +175,8 @@ class Player:
             self.crouch = False
         #print(self.crouch)
     
-
+        if Itsuki.x - 1 <= int(self.x) <= Itsuki.x + 1:
+            self.velocity *= 50*Itsuki.velocity
 
     def render(self):
         self.R = 0
