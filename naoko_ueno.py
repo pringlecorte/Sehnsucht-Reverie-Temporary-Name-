@@ -55,6 +55,7 @@ class QuintessentialQuintuplets():
             self.jump = False
             self.maxjumph = 5
 
+            self.basex = self.x
             self.basey = self.y
             self.basez = self.z
         def simplicityatitsfinest(self, obstacle):
@@ -76,21 +77,21 @@ class QuintessentialQuintuplets():
 
         def aitracking(self, player, obstacle):
             if self.Loopingtherooms % self.responsiveness == 0:
-                    self.dx = random.uniform(player.x - self.z*self.thresholdsx, player.x + self.z*self.thresholdsx)
-                    self.dz = random.uniform(player.z - self.z*self.thresholdsz, player.z + self.z*self.thresholdsz) 
+                    self.dx = random.uniform(player.futurex - self.z*self.thresholdsx, player.futurex + self.z*self.thresholdsx)
+                    self.dz = random.uniform(player.futurez - self.z*self.thresholdsz, player.futurez + self.z*self.thresholdsz) 
 
             self.personality_intercept(player)
             #print(self.dx)
             if not (self.dz - 0.1  <= self.z <= self.dz + 0.1):
                 if (self.z - self.dz < 0):
                     self.futurex, self.futurey, self.futurez = grow(self.x, self.y, self.z)
-
+                    self.basey += 1.5* (self.z/5)
                     self.simplicityatitsfinest(obstacle)
                             
 
                 elif (self.z - self.dz >= 0):
                     self.futurex, self.futurey, self.futurez = shrink(self.x, self.y, self.z)
-
+                    self.basey -= 1.5 * (self.z/5)
                     self.simplicityatitsfinest(obstacle)
 
 
@@ -130,37 +131,53 @@ class QuintessentialQuintuplets():
             if self.fatso:
                 self.velocity *= 1/1.1
 
-            if self.athletic and not self.jump:
-                if self.Loopingtherooms % (self.responsiveness * 10) == 0:                  
-                    self.basey = self.y
-                    self.basez = self.z
-                    self.jump = True
-                    self.y_vel = self.maxjumph 
-                    self.y -= 0.00000001
-                    self.jump = True
-
             if self.tsundere:
                 if self.Loopingtherooms % self.responsiveness == 0:
                     self.dx *= 2
 
                     if self.dx > self.screen_width:
                         self.dx = self.dx % self.screen_width
-                
 
-            if self.jump:            
+
+            if self.athletic and not self.jump:
+                if self.Loopingtherooms % (self.responsiveness * random.randint(10,15)) == 0:                  
+                    self.basey = self.y
+                    self.basez = self.z
+                    self.basex = self.x
+                    self.jump = True
+                    self.y_vel = self.maxjumph 
+                    self.y -= 0.00000001
+                    self.jump = True
+
+            if self.jump:  
+                self.dx = player.futurex
+                self.dz = player.futurez          
                 if self.y < self.basey:
                     self.y -= self.y_vel * self.z
-                    self.y_vel -= 0.5
+                    self.y_vel -= self.maxjumph/10
+
+                  
+                    self.x += ((player.futurex - self.x) * self.z)/(self.maxjumph*2/(self.maxjumph/10))
+                    
+                    if self.z < player.futurez:
+                        self.x, self.y, self.z = grow(self.x, self.y, self.z)
+                        self.basey += 1.5* (self.z/5)
+                        
+
+                    elif self.z > player.futurez:
+                        self.x, self.y, self.z = shrink(self.x, self.y, self.z)
+                        self.basey -= 1.5* (self.z/5)
                 #print('hello')
+
                 else:
                     self.jump = False
                     self.y = self.basey
 
             if self.clingy:
-                self.dx = player.x
-                self.dz = player.z
+                self.dx = player.futurex
+                self.dz = player.futurez
 
-                if abs(self.x - player.x) < 5 * self.z:
+                if abs(self.x - player.futurex) < 5 * self.z:
                     self.velocity *= 1/1.2
             
                     
