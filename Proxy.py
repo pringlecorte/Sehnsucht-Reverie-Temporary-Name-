@@ -65,7 +65,6 @@ class Player:
             self.basey += 1.5* (self.z/5)
 
         #print(self.z)
-
         if keys.is_pressed(self.keyleft):
             self.Right = False
             if int(self.velocity) > 0:
@@ -74,7 +73,7 @@ class Player:
             elif self.velocity >= -self.speed:
                 self.velocity -= 0.025
 
-            if keys.is_pressed(self.keyrun):
+            if keys.is_pressed(self.keyrun) and self.velocity >= -self.speed - 0.1:
                 self.velocity -= 0.1
 
                 self.x += self.velocity * self.z
@@ -87,7 +86,7 @@ class Player:
 
             elif self.velocity <= self.speed:
                 self.velocity += 0.025
-            if keys.is_pressed(self.keyrun):
+            if keys.is_pressed(self.keyrun) and self.velocity <= self.speed + 0.1:
                 self.velocity += 0.1
 
                 self.x += self.velocity * self.z
