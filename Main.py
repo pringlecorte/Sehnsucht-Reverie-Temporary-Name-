@@ -4,7 +4,7 @@ import sys
 import keyboard as keys
 import pyautogui as gangalicious
 import os 
-
+import random
 
 
 from Proxy import Player
@@ -55,8 +55,26 @@ from achievements import achievements
 
 achieve = achievements()
 npc_number = 0
-npc_name = "npc#"
-Warriors =[]
+npc_name = "Miku_Lover_#"
+Warriors = []
+
+Warrior_Dialogues = ["I WILL FIGHT FOR MIKU", 
+                     "Oh hey bob, u a miku  fan too??", 
+                     "MIKU IS THE BEST QUINTESSENTIAL QUINTUPLET", 
+                     "..with the sole exception of-- SHUT UP, NINO IS NOT THE SOLE EXCEPTION", 
+                     "i love femboys but no one will know"
+                     "Miku is soo cute",
+                     "Hi lol (will it work?)",
+                     "Yoo mike, u a fan of miku??",
+                     "LARPER. I KNOW YOU LIKE NINO",
+                     "I WILL DIE FOR MIKU",
+                     "Who are we chasing Miku??",
+                     "I WILL EAT MIKU'S FOOD",
+                     "Stand aside chuds, let me impress Miku",
+                     "I don't think this is the Hatsune Miku fan club",
+                     "0 episodes, 100 edits, larp is free but not for Miku",
+                     "Miku's food taste so good!!",
+                     "I HEART MIKU",]
 while True:
     refresh.tick(RefreshRate)
     now = pygame.time.get_ticks()
@@ -117,14 +135,20 @@ while True:
     if Miku.summon:
         npc_number += 1
         npc_actualname = npc_name + str(npc_number)
+
+        print()
+        print(f"{npc_actualname}: '{random.choice(Warrior_Dialogues)}'")
+        print()
+
         npc_actualname = QuintessentialQuintuplets(Miku.x, Miku.y, Miku.z, 10, 5, 0.05, 0.75, 0.055, 72, 100, 249, Screen, width, height, widtho=width/384, heighto= height/72)
         Entities.append(npc_actualname)
         Warriors.append(npc_actualname)
         Miku.summon = False
+
         
                
                 
 
-    print(Itsuki.velocity)
+    #print(Itsuki.velocity)
     #print(Itsuki.doneating)
     pygame.display.update()
