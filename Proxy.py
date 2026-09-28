@@ -74,11 +74,11 @@ class Player:
             elif self.velocity >= -self.speed:
                 self.velocity -= 0.025
 
-                if keys.is_pressed(self.keyrun):
-                    self.velocity -= 0.05
+            if keys.is_pressed(self.keyrun):
+                self.velocity -= 0.1
 
-                    self.x += self.velocity * self.z
-                    self.futurex = self.x
+                self.x += self.velocity * self.z
+                self.futurex = self.x
         elif keys.is_pressed(self.keyright):
             self.Right = True
 
@@ -87,11 +87,12 @@ class Player:
 
             elif self.velocity <= self.speed:
                 self.velocity += 0.025
-                if keys.is_pressed(self.keyrun):
-                    self.velocity += 0.05
+            if keys.is_pressed(self.keyrun):
+                self.velocity += 0.1
 
-                    self.x += self.velocity * self.z
-                    self.futurex = self.x
+                self.x += self.velocity * self.z
+                self.futurex = self.x
+            
             
 
         else:
