@@ -3,8 +3,6 @@ import math
 import sys
 import keyboard as keys
 import pyautogui as gangalicious
-import os 
-import random
 
 
 from resize import shrink, grow
@@ -46,7 +44,8 @@ class Player:
         self.keyrun = run
         self.keycrouch = crouch
 
-
+        self.futurex, self.futurey, self.futurez = self.x, self.y, self.z
+        
     def controls(self):
         self.Right = False
 
@@ -55,14 +54,14 @@ class Player:
 
 
         if keys.is_pressed(self.keyup) and self.widtha > self.widthb:
-            self.x, self.y, self.z = shrink(self.x, self.y, self.z)
-
+            self.futurex, self.futurey, self.futurez = shrink(self.x, self.y, self.z)
+            self.x, self.y, self.z = self.futurex, self.futurey, self.futurez
             self.basey -= 1.5 * (self.z/5)
 
 
         if keys.is_pressed(self.keydown) and self.z < 5:
-            self.x, self.y, self.z = grow(self.x, self.y, self.z)
-
+            self.futurex, self.futurey, self.futurez = grow(self.x, self.y, self.z)
+            self.x, self.y, self.z = self.futurex, self.futurey, self.futurez
             self.basey += 1.5* (self.z/5)
 
         #print(self.z)
@@ -91,8 +90,12 @@ class Player:
             elif self.velocity < 0:
                 self.velocity += 0.075
 
-        self.x += self.velocity * self.z
+        self.futurex += self.velocity * self.z
 
+
+        self.x = self.futurex
+
+       
 
 
         if keys.is_pressed(self.keycrouch):
@@ -117,13 +120,15 @@ class Player:
     def math(self):
         if self.jump:            
             if self.y < self.basey:
-                self.y -= self.y_vel * self.z
+                self.futurey -= self.y_vel * self.z
+                self.y = self.futurey
                 self.y_vel -= 0.5
                 #print('hello')
             else:
                 self.jump = False
                 #self.heighta -= 20*self.z
-                self.y = self.basey
+                self.futurey = self.basey
+                self.y = self.futurey
 
             
             #print(f"basey:{self.basey}")
@@ -132,10 +137,12 @@ class Player:
         #print(f"z:{self.z}")
 
         if self.x < 0:
-            self.x = self.screen_width
+            self.futurex = self.screen_width
 
         elif self.x > self.screen_width:
-            self.x = 0
+            self.futurex = 0
+
+        self.x = self.futurex
     
 
         if self.crouch:
