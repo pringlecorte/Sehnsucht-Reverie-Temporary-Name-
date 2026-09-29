@@ -90,8 +90,8 @@ class QuintessentialQuintuplets():
 
         def aitracking(self, player, obstacle, itsukisweakness=None):
             if self.Loopingtherooms % self.responsiveness == 0:
-                    self.dx = random.uniform(player.futurex - self.z*self.thresholdsx, player.futurex + self.z*self.thresholdsx)
-                    self.dz = random.uniform(player.futurez - self.z*self.thresholdsz, player.futurez + self.z*self.thresholdsz) 
+                    self.dx = random.uniform(player.x - self.z*self.thresholdsx, player.x + self.z*self.thresholdsx)
+                    self.dz = random.uniform(player.z - self.z*self.thresholdsz, player.z + self.z*self.thresholdsz) 
 
             self.personality_intercept(player, itsukisweakness)
             #print(self.dx)
@@ -145,13 +145,6 @@ class QuintessentialQuintuplets():
             if self.fatso:
                 self.velocity *= 1/1.2
 
-            if self.tsundere:
-                if self.Loopingtherooms % self.responsiveness == 0:
-                    self.dx *= 2
-
-                    if self.dx > self.screen_width:
-                        self.dx = self.dx % self.screen_width
-
 
             if self.athletic and not self.jump:
                 if self.Loopingtherooms % (self.responsiveness * random.randint(10,15)) == 0:                  
@@ -185,11 +178,6 @@ class QuintessentialQuintuplets():
                 else:
                     self.jump = False
                     self.y = self.basey
-                #print('hello')
-
-                else:
-                    self.jump = False
-                    self.y = self.basey
 
             if self.clingy:
                 self.dx = player.futurex
@@ -210,28 +198,34 @@ class QuintessentialQuintuplets():
                             self.dx = self.meatbun.x
                             self.dz = self.meatbun.z
                         self.doneating = False
-                        print("eating")
+                
                     elif self.Loopingtherooms % 500 == 0:
                         self.doneating = True
-                        print("done")
+        
 
             if self.loved:
                 if self.Loopingtherooms % (15 * random.randint(10,15)) == 0:
                     self.summon = True
+            
+            if self.tsundere:
+                if player.velocity < 0:
+                    if 0 <= self.x <= player.x and player.z - 1 <= self.z <= player.z + 1:
+                        self.dx = random.uniform(player.x - 100 - self.z*self.thresholdsx, player.x - 50 + self.z*self.thresholdsx)
+                        self.speed = player.speed
+
+                if player.velocity > 0:
+                    if player.x <= self.x <= self.screen_width:
+                        self.dx = random.uniform(player.x + 100 - self.z*self.thresholdsx, player.x + 50 + self.z*self.thresholdsx)
+                        self.speed = player.speed
+                 
                     
                  
             
         def render(self):
-            self.newR = self.R * (self.z/5)
-            self.newG = self.G * (self.z/5)
-            self.newB = self.B * (self.z/5)
+            self.newR = min(self.R * (self.z/5), 255)
+            self.newG = min(self.G * (self.z/5), 255)
+            self.newB = min(self.B * (self.z/5), 255)
 
-            if self.newR > 255:
-                self.newR = 255
-            if self.newG > 255:
-                self.newG = 255
-            if self.newB > 255:
-                self.newB = 255
 
             self.widtha = self.widthb*self.z
             self.heighta = self.heightb*self.z
