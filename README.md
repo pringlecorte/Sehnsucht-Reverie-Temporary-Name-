@@ -25,6 +25,8 @@ guess who just finished their exams >:)
 
 alr guys i decided to take a bite of trying to refractor my code, finished product is 10kb !! idk how i saved 2 kb but thats lowk cool. anyways go check it up there. imma also delete tobun and the old drafts of sehnsucht reverie from here cuz its frying me with how long this readme is
 
+I JUST DISCOVERED LAST NIGHT, U CAN ACTUALLY "DRAW" FAKE 3D WALLS IF U SPAM THE PYGANME.DRAW.RECT ENOUGH LOLOL
+
 #v3
 Central themes ill PROLLY base on
 A Silent Voice
