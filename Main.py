@@ -42,11 +42,12 @@ wall = Obstacles(300, 2, 50, 50, height, Screen)
 objects = [fan, wall]
 
 
-Ichika =  QuintessentialQuintuplets(0, height/2, 1, 15, 15, 0.3, 0.85, 0.05, 200, 200, 0, Screen, width, height)
+
 Nino =    QuintessentialQuintuplets(width/4, height/2, 1, 20, 25, 0.3, 0.70, 0.035, 247, 37, 133,  Screen, width, height, traits={"tsundere":True})
 Miku =    QuintessentialQuintuplets(width/2, height/2, 1, 10, 5, 0.05, 0.75, 0.055, 72, 149, 239, Screen, width, height, traits={"shy":True, "loved":True})
 Yotsuba = QuintessentialQuintuplets(width*3/4, height/2, 1, 13, 10, 0.2, 1, 0.1, 112, 224, 0,  Screen, width, height, traits={"athletic":True})
 Itsuki =  QuintessentialQuintuplets(width, height/2, 1, 5, 19, 0.3, 0.65, 0.065, 239, 35, 60, Screen, width, height, traits={"fatso":True, "hungry":True})    
+Ichika =  QuintessentialQuintuplets(0, height/2, 1, 15, 15, 0.3, 0.85, 0.05, 200, 200, 0, Screen, width, height, tomimic=Yotsuba, traits={"mimic":True})
 
 Sisters = [Ichika, Nino, Miku, Yotsuba, Itsuki]
 Entities = Sisters + objects + players
@@ -54,10 +55,12 @@ Entities = Sisters + objects + players
 from achievements import achievements
 
 achieve = achievements()
+
+
 npc_number = 0
 npc_name = "Miku_Lover_#"
 Warriors = []
-
+Warrior_Names = []
 Warrior_Dialogues = ["I WILL FIGHT FOR MIKU", 
                      "Oh hey bob, u a miku  fan too??", 
                      "MIKU IS THE BEST QUINTESSENTIAL QUINTUPLET", 
@@ -89,7 +92,16 @@ Warrior_Dialogues = ["I WILL FIGHT FOR MIKU",
                      "FOR MIKU I WILL DO MY ASSIGNMENTS",
                      "FOR MIKU I WILL DO MY WORK",
                      "MIKUTEACHESEVERYTHING IS SO GOATED"
-                     "HIIIII MIKUUUU"]
+                     "HIIIII MIKUUUU",
+                     "Ranking the quintessential quintuplets, id rank Miku, Miku, Miku, Miku and maybe just maybe...Miku",
+                     "WE ARE THE BRIDES WE ARE THE BRIDES PLEASE",
+                     "FUUTAROU PASS THE DAM CONTROLLER IF YOU WONT PLAY",
+                     "..maybe fuutarou found joy with -- NO SPOILERS",
+                     "haha you chuds, i have the ws990bt..whats that you say? these are bootleg? NOOOO",
+                     "Miku Nakano rhymes with 'My Wife'",
+                     "BACK OFF SHE'S MINE",
+                     "MIKU DO U WANT SOME FOOD??",
+                     ]
 while True:
     refresh.tick(RefreshRate)
     now = pygame.time.get_ticks()
@@ -113,21 +125,22 @@ while True:
 
     renderorder = sorted(Entities, key=lambda sister:sister.z)
 
+    #currently debugging sorry if its not the entire gang
     for name in renderorder:
-        if name in Sisters or name in Warriors:
+        if name == Ichika or name == Yotsuba:
             if Active_food:
                 name.aitracking(player, objects, Active_food[0])
             else:
                 name.aitracking(player,objects)
 
-        
-        name.render()
+        if name == Ichika or name == player or name == Yotsuba:
+            name.render()
 
 
     achieve.checker(player, Sisters, objects, width)
     #gangalicious.moveTo(100,100, 1, tween=gangalicious.easeInOutCirc)
     #print(Yotsuba.targetx)dddddd
-    Loopingtherooms += 1
+    
     #print(Ichika.velocity)
     #print(Miku.velocity)
     #print("future x", player.futurex)
@@ -147,9 +160,12 @@ while True:
             if remove_food in Entities:
                 Entities.remove(remove_food)
 
-    if Miku.summon:
+    if Miku.summon and npc_number < 10:
         npc_number += 1
         npc_actualname = npc_name + str(npc_number)
+
+
+        Warrior_Names.append(npc_actualname)
 
         print()
         print(f"{npc_actualname}: '{random.choice(Warrior_Dialogues)}'")
@@ -159,7 +175,13 @@ while True:
         Entities.append(npc_actualname)
         Warriors.append(npc_actualname)
         Miku.summon = False
+    
 
+    if Loopingtherooms % 500 == 0 and Warrior_Names:
+        print()
+        print(f"{random.choice(Warrior_Names)}: '{random.choice(Warrior_Dialogues)}'")
+        print()
+    Loopingtherooms += 1
         
                
                 
