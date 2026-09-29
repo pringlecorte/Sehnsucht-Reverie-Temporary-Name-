@@ -164,24 +164,27 @@ class QuintessentialQuintuplets():
                     self.jump = True
 
                     
-            if self.jump:  
-                self.dx = player.futurex
-                self.dz = player.futurez          
+            if self.jump:         
                 if self.y < self.basey:
                     self.y -= self.y_vel * self.z
                     self.y_vel -= self.maxjumph/20
 
                   
-                    self.x += ((player.futurex - self.x) * self.z)/(self.maxjumph*2/(self.maxjumph/20))
+                    self.x += ((player.x - self.x) * self.z)/(self.maxjumph*2/(self.maxjumph/20))
                     
-                    if self.z < player.futurez:
+                    if self.z < player.z:
                         self.x, self.y, self.z = grow(self.x, self.y, self.z)
                         self.basey += 1.5* (self.z/5)
                         
 
-                    elif self.z > player.futurez:
+                    elif self.z > player.z:
                         self.x, self.y, self.z = shrink(self.x, self.y, self.z)
                         self.basey -= 1.5* (self.z/5)
+                #print('hello')
+
+                else:
+                    self.jump = False
+                    self.y = self.basey
                 #print('hello')
 
                 else:
