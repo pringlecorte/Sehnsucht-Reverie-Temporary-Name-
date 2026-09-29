@@ -3,7 +3,7 @@ import random
 from resize import grow, shrink
 
 class QuintessentialQuintuplets():
-        def __init__(self, x, y, z, responsiveness, thresholdsx, thresholdsz, speed, acceleration, R, G, B, Screen, width, height, widtho=None, heighto=None, traits=None,):
+        def __init__(self, x, y, z, responsiveness, thresholdsx, thresholdsz, speed, acceleration, R, G, B, Screen, width, height, widtho=None, heighto=None, tomimic=None, traits=None,):
             self.traits = traits if traits is not None else {}
 
             self.shy = self.traits.get("shy", False)
@@ -16,7 +16,9 @@ class QuintessentialQuintuplets():
             self.fatso = self.traits.get("fatso", False)
             self.dangerous = self.traits.get("dangerous", False)
             self.loved = self.traits.get("loved", False)
+            self.mimic = self.traits.get("mimic", False)
 
+            self.sister_mimic = tomimic
             #THE QUINTESSENTIAL QUINTUPLETS
             self.x = x
             self.y = y
@@ -30,11 +32,26 @@ class QuintessentialQuintuplets():
             if heighto:
                 self.heightb = heighto
 
-            self.responsiveness = responsiveness
-            self.thresholdsx = thresholdsx
-            self.thresholdsz = thresholdsz
-            self.speed = speed
-            self.acceleration = acceleration
+            self.bresponsiveness = responsiveness
+            self.bthresholdsx = thresholdsx
+            self.bthresholdsz = thresholdsz
+            self.bspeed = speed
+            self.bacceleration = acceleration
+
+            self.responsiveness = self.bresponsiveness
+            self.thresholdsx = self.bthresholdsx
+            self.thresholdsz = self.bthresholdsz
+            self.speed = self.bspeed
+            self.acceleration = self.bacceleration
+
+
+            self.bR = R
+            self.bG = G
+            self.bB = B
+
+            self.R = self.bR
+            self.G = self.bG
+            self.B = self.bB
 
             self.dz = self.z
             self.dx = self.x
@@ -42,11 +59,8 @@ class QuintessentialQuintuplets():
             self.widtha = self.widthb*self.z
             self.heighta = self.heightb*self.z 
 
-            self.R = R
-            self.G = G
-            self.B = B
-
             self.velocity = 0
+
             self.juke = False
 
             self.futurex = self.x
@@ -217,10 +231,20 @@ class QuintessentialQuintuplets():
                     if player.x <= self.x <= self.screen_width:
                         self.dx = random.uniform(player.x + 100 - self.z*self.thresholdsx, player.x + 50 + self.z*self.thresholdsx)
                         self.speed = player.speed
-                 
-                    
-                 
-            
+
+            if self.mimic:
+                #planning to make it loop for the entire game than just 500 and 1000 values
+                if self.Loopingtherooms % 10000 >= 500:
+                    self.statex = self.x
+                    self.statey = self.y
+                    self.statez = self.z
+
+                    self.newx, self.newy, self.newz, self.newresponsiveness, self.newthresholdsx, self.newthresholdsz, self.newspeed, self.newacceleration, self.newR, self.newG, self.newB = self.sister_mimic.x, self.sister_mimic.y, self.sister_mimic.z, self.sister_mimic.responsiveness, self.sister_mimic.thresholdsx, self.sister_mimic.thresholdsz, self.sister_mimic.speed, self.sister_mimic.acceleration, self.sister_mimic.R, self.sister_mimic.G, self.sister_mimic.B
+                    self.x, self.y, self.z, self.responsiveness, self.thresholdsx, self.thresholdsz, self.speed, self.acceleration, self.R, self.G, self.B =   self.newx, self.newy, self.newz, self.newresponsiveness, self.newthresholdsx, self.newthresholdsz, self.newspeed, self.newacceleration, self.newR, self.newG, self.newB           
+                if self.Loopingtherooms % 10000 >= 1000:
+                    self.x, self.y, self.z, self.responsiveness, self.thresholdsx, self.thresholdsz, self.speed, self.acceleration, self.R, self.G, self.B = self.statex, self.statey, self.statez, self.bresponsiveness, self.bthresholdsx, self.bthresholdsz, self.bspeed, self.bacceleration, self.bR, self.bG, self.bB
+            print(self.Loopingtherooms)
+        
         def render(self):
             self.newR = min(self.R * (self.z/5), 255)
             self.newG = min(self.G * (self.z/5), 255)
