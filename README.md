@@ -28,6 +28,7 @@ alr guys i decided to take a bite of trying to refractor my code, finished produ
 I JUST DISCOVERED LAST NIGHT, U CAN ACTUALLY "DRAW" FAKE 3D WALLS IF U SPAM THE PYGANME.DRAW.RECT ENOUGH LOLOL
 ...3d walls anyone?? maybe i might returnr to my old project's style but more refined (it is already more refined lol)
 im lowk a chud thats too alzy to think about the math to do intensive stuff like raycasting so im going with the ez stuff but hey, it looks better, its more efficient and i can literally have itsuki draw the map for you lol
+**all from an itsuki rendering bug btw lol cuz when i was testing eatsuki's bigbackness yesterday, it literally caused her to clone herself as she moved and i saw the inspo
 
 #v3
 Central themes ill PROLLY base on
