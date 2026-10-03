@@ -3,198 +3,194 @@ import math
 import sys
 import keyboard as keys
 import pyautogui as gangalicious
-import os 
-import random
 
 
-from Proxy import Player
-from naoko_ueno import QuintessentialQuintuplets
-from Obstacle import Obstacles
-from objects import Food
-from draw_test import Draw, pen
+from resize import shrink, grow
 
-os.environ['SDL_VIDEO_CENTERED'] = '1'
-pygame.init()
+class Player:
+    def __init__(self, width, height, Screen, up, down, left, right, jump, run, crouch, drop):
+        #screen width, height, Screen
+        self.x = width/3
+        self.y = height/2
+        self.z = 1
 
+        self.widthb = width/192
+        self.heightb = height/36
 
-width = 800
-height = 600
-RefreshRate = 60
-Screen = pygame.display.set_mode((width, height))
-gangalicious.PAUSE = False
-Loopingtherooms = 0
+        self.widtha = self.widthb*self.z
+        self.heighta = self.heightb*self.z 
 
+        self.jump = False
+        self.speed = 0.90
+        self.velocity = 0
+        self.maxjumph = 5
 
-refresh = pygame.time.Clock()
-test = True
-n = 0
-s = 0
-n = pygame.time.get_ticks()
-Active_food = []
-player = Player(width, height, Screen, "w", "s", "a", "d", "space", "left shift", "q", "e")
-#player2 = Player(width, height, Screen, "up", "down", "left", "right", "right ctrl", "right shift", "right alt")
-players = [player]
-fan = Obstacles(100, 4, 20, 20, height, Screen)
-wall = Obstacles(300, 2, 50, 50, height, Screen)
+        self.basey = self.y
 
-objects = [fan, wall]
+        self.crouch = False
+        self.crouchval = 0
 
+        self.screen_width = width
+        self.screen_height = height
+        self.ScreenDisplay = Screen
 
+        self.velocity = 0
 
-Nino =    QuintessentialQuintuplets(width/4, height/2, 1, 20, 25, 0.3, 0.70, 0.035, 247, 37, 133,  Screen, width, height, traits={"tsundere":True})
-Miku =    QuintessentialQuintuplets(width/2, height/2, 1, 10, 5, 0.05, 0.75, 0.055, 72, 149, 239, Screen, width, height, traits={"shy":True, "loved":True})
-Yotsuba = QuintessentialQuintuplets(width*3/4, height/2, 1, 13, 10, 0.2, 1, 0.1, 112, 224, 0,  Screen, width, height, traits={"athletic":True})
-Itsuki =  QuintessentialQuintuplets(width, height/2, 1, 5, 19, 0.3, 0.65, 0.065, 239, 35, 60, Screen, width, height, traits={"fatso":True, "hungry":True})    
-Ichika =  QuintessentialQuintuplets(0, height/2, 1, 15, 15, 0.3, 0.85, 0.05, 200, 200, 0, Screen, width, height, tomimic=Yotsuba, traits={"mimic":True})
+        self.keyup = up
+        self.keydown = down
+        self.keyright = right
+        self.keyleft = left
+        self.keyjump = jump
+        self.keyrun = run
+        self.keycrouch = crouch
+        self.keyattack = drop
 
-Sisters = [Ichika, Nino, Miku, Yotsuba, Itsuki]
-Entities = Sisters + objects + players
+        self.futurex, self.futurey, self.futurez = self.x, self.y, self.z
 
-from achievements import achievements
+        self.isfood = False
+        self.foodwhereabouts = {}
+    def controls(self):
+        self.Right = False
 
-achieve = achievements()
-
-
-npc_number = 0
-npc_name = "Miku_Lover_#"
-Warriors = []
-Warrior_Names = []
-Warrior_Dialogues = ["I WILL FIGHT FOR MIKU", 
-                     "Oh hey bob, u a miku  fan too??", 
-                     "MIKU IS THE BEST QUINTESSENTIAL QUINTUPLET", 
-                     "..with the sole exception of-- SHUT UP, NINO IS NOT THE SOLE EXCEPTION", 
-                     "i love femboys but no one will know",
-                     "Miku is soo cute",
-                     "Hi lol (will it work?)",
-                     "Yoo mike, u a fan of miku??",
-                     "LARPER. I KNOW YOU LIKE NINO",
-                     "I WILL DIE FOR MIKU",
-                     "Who are we chasing Miku??",
-                     "I WILL EAT MIKU'S FOOD",
-                     "Stand aside chuds, let me impress Miku",
-                     "I don't think this is the Hatsune Miku fan club",
-                     "0 episodes, 100 edits, larp is free but not for Miku",
-                     "Miku's food taste so good!!",
-                     "I HEART MIKU",
-                     "Fuutarou shoulda chosen Miku :((",
-                     "But would Fuutarou be truly happy if it were Miku?",
-                     "HEY NO SPOILERS",
-                     "i REALLY love femboys",
-                     "Im thinking Miku Miku oo-eee-oo",
-                     "Ain't miku a vocaloid",
-                     "She does NOT have twin tails",
-                     "SHUT UP LARPERS, THIS THE REAL MIKU",
-                     "...with the sole exception of Nakano Nin--SHUT UPPP",
-                     "I can recite every single line of Miku's part in gotoubun no kimochi...'Futarou!!', 'Mittsu massugu na kono kimochi'...",
-                     "WHO HAS THE WS990BT I NEED IT",
-                     "FOR MIKU I WILL DO MY ASSIGNMENTS",
-                     "FOR MIKU I WILL DO MY WORK",
-                     "MIKUTEACHESEVERYTHING IS SO GOATED"
-                     "HIIIII MIKUUUU",
-                     "Ranking the quintessential quintuplets, id rank Miku, Miku, Miku, Miku and maybe just maybe...Miku",
-                     "WE ARE THE BRIDES WE ARE THE BRIDES PLEASE",
-                     "FUUTAROU PASS THE DAM CONTROLLER IF YOU WONT PLAY",
-                     "..maybe fuutarou found joy with -- NO SPOILERS",
-                     "haha you chuds, i have the ws990bt..whats that you say? these are bootleg? NOOOO",
-                     "Miku Nakano rhymes with 'My Wife'",
-                     "BACK OFF SHE'S MINE",
-                     "MIKU DO U WANT SOME FOOD??",
-                     ]
-Pen = pen(width, height, Screen)
-while True:
-    refresh.tick(RefreshRate)
-    now = pygame.time.get_ticks()
-
-      
-        #if test:
-         #   Otsu.x = Otsu.x/(resize.width/resize.dwidth)
-          #  test = False
-        #resize.width = width
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            sys.exit()
+        self.widtha = self.widthb*self.z
+        self.heighta = self.heightb*self.z 
 
 
-    Screen.fill((0, 0, 0))
-    
+        if keys.is_pressed(self.keyup) and self.widtha > self.widthb:
+            self.futurex, self.futurey, self.futurez = shrink(self.x, self.y, self.z)
+            self.x, self.y, self.z = self.futurex, self.futurey, self.futurez
+            self.basey -= 1.5 * (self.z/5)
 
-    
 
-    for p in players:
-        p.controls()
-        p.math(Itsuki)
-     
+        if keys.is_pressed(self.keydown) and self.z < 5:
+            self.futurex, self.futurey, self.futurez = grow(self.x, self.y, self.z)
+            self.x, self.y, self.z = self.futurex, self.futurey, self.futurez
+            self.basey += 1.5* (self.z/5)
 
-    renderorder = sorted(Entities, key=lambda sister:sister.z)
+        #print(self.z)
 
-    #currently debugging sorry if its not the entire gang
-    for name in renderorder:
-        if name == Ichika or name == Yotsuba:
-            if Active_food:
-                name.aitracking(player, objects, Active_food[0])
+        if keys.is_pressed(self.keyleft):
+            self.Right = False
+            if int(self.velocity) > 0:
+                self.velocity -= self.velocity/4
+
+            elif self.velocity >= -self.speed:
+                self.velocity -= 0.025
+
+            if keys.is_pressed(self.keyrun) and self.velocity >= -self.speed - 0.1:
+                self.velocity -= 0.1
+
+                self.x += self.velocity * self.z
+                self.futurex = self.x
             else:
-                name.aitracking(player,objects)
+                if self.velocity < -self.speed:
+                    self.velocity += 0.1
+        elif keys.is_pressed(self.keyright):
+            self.Right = True
 
-        name.render()
+            if int(self.velocity) < 0:
+                self.velocity += abs(self.velocity/4)
 
+            elif self.velocity <= self.speed:
+                self.velocity += 0.025
+            if keys.is_pressed(self.keyrun) and self.velocity <= self.speed + 0.1:
+                self.velocity += 0.1
 
-    achieve.checker(player, Sisters, objects, width)
-    #gangalicious.moveTo(100,100, 1, tween=gangalicious.easeInOutCirc)
-    #print(Yotsuba.targetx)dddddd
-    
-    #print(Ichika.velocity)
-    #print(Miku.velocity)
-    #print("future x", player.futurex)
-    #print("x", player.x)
-    
-    Pen.move()
-    Wall = Draw(Pen.x, Pen.y, Pen.z, Screen)
+                self.x += self.velocity * self.z
+                self.futurex = self.x
+            else:
+                if self.velocity > self.speed:
+                    self.velocity -= 0.1
+            
 
-    Entities.append(Wall)
+        else:
+            if self.velocity > 0:
+                self.velocity -= 0.075
+            elif self.velocity < 0:
+                self.velocity += 0.075
 
+        self.futurex += self.velocity * self.z
 
-    if player.isfood:
-        meatbun = Food(player.x, player.y, player.z, Screen)
-        Active_food.append(meatbun)
-        Entities.append(meatbun)
-        player.isfood = False
-        Itsuki.doneating = False
+        self.x = self.futurex
 
-    if Itsuki.doneating:
-        if Active_food:
-            remove_food = Active_food.pop(0)
-            if remove_food in Entities:
-                Entities.remove(remove_food)
-
-    if Miku.summon and npc_number < 10:
-        npc_number += 1
-        npc_actualname = npc_name + str(npc_number)
+       
 
 
-        Warrior_Names.append(npc_actualname)
-
-        print()
-        print(f"{npc_actualname}: '{random.choice(Warrior_Dialogues)}'")
-        print()
-
-        npc_actualname = QuintessentialQuintuplets(Miku.x, Miku.y, Miku.z, 10, 5, 0.05, 0.75, 0.055, 72, 100, 249, Screen, width, height, widtho=width/384, heighto= height/72)
-        Entities.append(npc_actualname)
-        Warriors.append(npc_actualname)
-        Miku.summon = False
-    
-
-    if Loopingtherooms % 500 == 0 and Warrior_Names:
-        print()
-        print(f"{random.choice(Warrior_Names)}: '{random.choice(Warrior_Dialogues)}'")
-        print()
-    Loopingtherooms += 1
+        if keys.is_pressed(self.keycrouch):
+            self.basey1 = self.y
+            self.crouch = True
         
-               
-                
+        if keys.is_pressed(self.keyjump) and not self.jump:
 
-    #print(Itsuki.velocity)
-    #print(Itsuki.doneating)
+            self.basey = self.y
+            self.basez = self.z
+            self.jump = True
+            #self.time = -50
+            #self.time1= -75
+            self.y_vel = self.maxjumph 
+            self.y -= 0.00000001
+
+        if keys.is_pressed(self.keyattack):
+            self.isfood = True
+
+
+    def attack(self):
+        if self.attack:
+            pass
     
-    pygame.display.update()
+    def math(self, Itsuki):
+        if self.jump:            
+            if self.y < self.basey:
+                self.futurey -= self.y_vel * self.z
+                self.y = self.futurey
+                self.y_vel -= 0.5
+                #print('hello')
+            else:
+                self.jump = False
+                #self.heighta -= 20*self.z
+                self.futurey = self.basey
+                self.y = self.futurey
+
+            
+            #print(f"basey:{self.basey}")
+            #print(f"y:{self.y}")
+            #print(f"vely{self.y_vel}")
+        #print(f"z:{self.z}")
+
+        if self.x < 0:
+            self.futurex = self.screen_width
+
+        elif self.x > self.screen_width:
+            self.futurex = 0
+
+        self.x = self.futurex
     
+
+        if self.crouch:
+            self.heightb = self.screen_height/72
+        if not keys.is_pressed(self.keycrouch) and not self.jump:
+            #self.y -= (height/36 - height/72)*self.z
+            self.heightb = self.screen_height/36
+           
+            self.crouch = False
+        #print(self.crouch)
+    
+        if Itsuki.x - Itsuki.thresholdsx <= int(self.x) <= Itsuki.x + Itsuki.thresholdsx and Itsuki.z - Itsuki.thresholdsz <= self.z <= Itsuki.z + Itsuki.thresholdsz and Itsuki.y - 1 <= self.y <= Itsuki.y + 1:
+            self.velocity *= -(10*abs(Itsuki.velocity) + 3)
+
+    def render(self):
+        self.R = 0
+        self.G = 30 * self.z
+        self.B = 30 * self.z
+
+        if self.G > 200:
+            self.G = 200
+        if self.B > 200:
+            self.B = 200
+
+
+        pygame.draw.rect(self.ScreenDisplay, (self.R, self.G, self.B), (self.x, self.y - self.heighta, self.widtha, self.heighta))
+
+
+
+
