@@ -107,6 +107,8 @@ Latte Cookie (crk)/Claret Flint (zzz)
 "I dont care about the meta, i love latte cookie/claret flint for who they are"
 
 
+what if i make it start with 2 kids in an intense snowball fight and then oneof them suddenly bleeds and turns out, the snowball they got hit with had a stone in it
+
 
 
 
