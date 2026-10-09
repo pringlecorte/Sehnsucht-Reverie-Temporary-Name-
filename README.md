@@ -33,7 +33,6 @@ im lowk a chud thats too alzy to think about the math to do intensive stuff like
 
 HELL YE I MANAGED TO TAME THE BUG (me drawing hello with the wall drawer)
 <img width="808" height="609" alt="image" src="https://github.com/user-attachments/assets/86b0522c-9f9d-4b7e-b547-c512d9813daf" />
-
 #v3
 Central themes ill PROLLY base on
 A Silent Voice
@@ -108,6 +107,8 @@ Latte Cookie (crk)/Claret Flint (zzz)
 
 
 planning to pivot to godot but imma keep these here 
+
+ye no. i tried using godotm hell i was even gonna try to make it actually 3d but bro the hell, it doesnt feel cozy. it doesnt feel like python even if its supposed to be similar. its like its spooonfeeding u. wheres the thrill of accidentally printing a memory sector when u wanted to print a class name??
 
 what if i make it start with 2 kids in an intense snowball fight and then oneof them suddenly bleeds and turns out, the snowball they got hit with had a stone in it
 
