@@ -110,6 +110,8 @@ planning to pivot to godot but imma keep these here
 
 ye no. i tried using godotm hell i was even gonna try to make it actually 3d but bro the hell, it doesnt feel cozy. it doesnt feel like python even if its supposed to be similar. its like its spooonfeeding u. wheres the thrill of accidentally printing a memory sector when u wanted to print a class name??
 
+i DONT care if i gotta make the ui myself, if i gotta do the math manually, if i have to sit behind it, if i have to initate more classes for better execution, i WILL do it myself, cuz the fun comes from figuring it out. dont get me wrong, godot is cool especially for indie creators but it takes away alot of the coding language barrier that makes coders feel special lol. Like i can just put an english name and itll do exactly what it does instead of me needing to type out 5 different variables to execute that.
+
 what if i make it start with 2 kids in an intense snowball fight and then oneof them suddenly bleeds and turns out, the snowball they got hit with had a stone in it
 
 smth like the kid thoguth the other was just sleeping or smth
