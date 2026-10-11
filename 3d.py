@@ -24,16 +24,17 @@ y_offset = 0
 z_offset = 0
 
 
+SCALE = 10
 
 
-p1 = moonpie.array([-1000, -1000, 5, 1])
-p2 = moonpie.array([1000, -1000, 5, 1])
-p3 = moonpie.array([1000, 1000, 5, 1])
-p4 = moonpie.array([-1000, 1000, 5, 1])
-p5 = moonpie.array([-1000, -1000, 10, 1])
-p6 = moonpie.array([1000, -1000, 10, 1])
-p7 = moonpie.array([1000, 1000, 10, 1])
-p8 = moonpie.array([-1000, 1000, 10, 1])
+p1 = moonpie.array([1, 1, 1, 1])
+p2 = moonpie.array([10, 1, 1, 1])
+p3 = moonpie.array([10, 10, 1, 1])
+p4 = moonpie.array([1, 10, 1, 1])
+p5 = moonpie.array([1, 1, 10, 1])
+p6 = moonpie.array([10, 1, 10, 1])
+p7 = moonpie.array([10, 10, 10, 1])
+p8 = moonpie.array([1, 10, 10, 1])
 original = [p1, p4, p3, p2, p1, p2, p6, p7, p3, p7, p8, p4, p8, p5, p6, p5]
 changed = [p1, p4, p3, p2, p1, p2, p6, p7, p3, p7, p8, p4, p8, p5, p6, p5]
 points = [p1, p4, p3, p2, p1, p2, p6, p7, p3, p7, p8, p4, p8, p5, p6, p5]
@@ -71,16 +72,16 @@ move = rotation @ translation
 
 def shift(x, y, z):     
     if wankel.is_pressed("up"):
-        y -= 100
+        y -= 5
 
     elif wankel.is_pressed("down"):
-        y += 100
+        y += 5
 
     if wankel.is_pressed("left"):
-        x -= 100
+        x -= 5
 
     elif wankel.is_pressed("right"):
-        x += 100
+        x += 5
 
     if wankel.is_pressed("q"):
         #smaller
@@ -105,8 +106,6 @@ def rotate(ax, ay, az):
 
     elif wankel.is_pressed("s"):
         ax -= math.radians(5)
-    else:
-        ax = 0
 
     if wankel.is_pressed("z"):
         az -= math.radians(5)
@@ -115,6 +114,9 @@ def rotate(ax, ay, az):
         az += math.radians(5)
     
     return ax, ay, az
+
+def draw_line(pos1, pos2):
+    pygame.draw.line(Screen, (255, 255, 255), pos1, pos2)
 
 RefreshRate = 30
 refresh = pygame.time.Clock()
@@ -133,8 +135,6 @@ while True:
     #pygame.draw.circle(Screen, (255, 255, 255), (x1/z1 + width/2, y1/z1 + height/2), 300/z1,)
     #pygame.draw.rect(Screen,(255,255,255), (width/2, height/2, 10, 10))
 
-
-    x_offset = y_offset = z_offset = 0
     #x_rotate, y_rotate = math.cos(0), math.sin(0)
     #anglex = angley = anglez = 0
     anglex, angley, anglez = rotate(anglex, angley, anglez)
@@ -152,7 +152,7 @@ while True:
     print(f"{cx}, {sx}")
     #print(f"{movex[1][1]}, {movex[1][2]}, {movex[2][1]}, {movex[2][2]}")
 
-    rotation =  movex
+    rotation =  movez @ movey @ movex
         
         
     x_offset, y_offset, z_offset = shift(x_offset, y_offset, z_offset)
@@ -173,12 +173,19 @@ while True:
     for i in range(len(original)):
 
 
-        changed[i] = move @ original[i]
+        changed[i] = move @ original[i] 
         #print(move)
         #print(changed[0])
-        
+        x = int(changed[i][0] * SCALE)+ width/2
+        y = int(changed[i][1] * SCALE) + height/2
+
+        x2 = int(changed[(i+1)%len(original)][0] * SCALE)+ width/2
+        y2 = int(changed[(i+1)%len(original)][1] * SCALE) + height/2
         #pygame.draw.circle(Screen, (255, 255, 255), (changed[i][0]/changed[i][2] + width/2, changed[i][1]/changed[i][2] + height/2), 100/changed[i][2])
-        pygame.draw.circle(Screen, (255, 255, 255), (changed[i][0]/changed[i][2] + width/2, changed[i][1]/changed[i][2] + height/2), 100/changed[i][2])
+        pygame.draw.circle(Screen, (255, 255, 255), (x, y), 10/changed[i][2])
+        print(changed[0][0], changed[0][1], changed[1][0], changed[1][1])
+
+        draw_line((x, y), (x2, y2))
         #pygame.draw.circle(Screen, (255, 255, 255), (100*cx + width/2, 100*sx + height/2), 1)
         #pygame.draw.circle(Screen, (255, 255, 255), (changed[], (changed[0][2]*sx)/2 + height), 1)
         #print(changed[0][2])
@@ -186,8 +193,8 @@ while True:
         
         #print(f"x: {changed[0][0]/changed[0][2] + width/2}")
         #print(f"y: {changed[0][1]/changed[0][2] + height/2}")
-        #pygame.draw.line(Screen, (255, 255, 255), (changed[1][0]/changed[1][2] + width/2, changed[1][1]/changed[1][2] + height/2), (changed[2][0]/changed[2][2] + width/2, changed[2][1]/changed[2][2] + height/2))
-        pygame.draw.line(Screen, (255, 255, 255), (changed[i][0]/changed[i][2] + width/2, changed[i][1]/changed[i][2] + height/2), (changed[(i+1)%len(changed)][0]/changed[(i+1)%len(changed)][2] + width/2, changed[(i+1)%len(changed)][1]/changed[(i+1)%len(changed)][2] + height/2))
+        #pygame.draw.line(Screen, (255, 255, 255), (x, y), (changed[2][0]/changed[2][2] + width/2, changed[2][1]/changed[2][2] + height/2))
+        #pygame.draw.line(Screen, (255, 255, 255), (x, y), (changed[(i+1)%len(changed)][0]/changed[(i+1)%len(changed)][2] + width/2, changed[(i+1)%len(changed)][1]/changed[(i+1)%len(changed)][2] + height/2))
         
         
 
@@ -195,3 +202,4 @@ while True:
 
     pygame.display.update()
 #code is still in progress lol thats why it seems a bit messy. im new to matrices so bear with me
+#i think i did it...its actually rotating properly
