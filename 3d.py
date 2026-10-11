@@ -121,7 +121,7 @@ refresh = pygame.time.Clock()
 
 while True:
     refresh.tick(RefreshRate)
-    #Screen.fill((0,0,0))
+    Screen.fill((0,0,0))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
@@ -173,20 +173,21 @@ while True:
     for i in range(len(original)):
 
 
-        changed[i] = move @ original[i]
+        changed[i] = move @ changed[i]
         #print(move)
         #print(changed[0])
         
         #pygame.draw.circle(Screen, (255, 255, 255), (changed[i][0]/changed[i][2] + width/2, changed[i][1]/changed[i][2] + height/2), 100/changed[i][2])
-        #pygame.draw.circle(Screen, (255, 255, 255), (changed[i][0]/changed[i][2] + width/2, changed[i][1]/changed[i][2] + height/2), 100/changed[i][2])
-        pygame.draw.circle(Screen, (255, 255, 255), (100*cx + width/2, 100*sx + height/2), 1)
+        pygame.draw.circle(Screen, (255, 255, 255), (changed[i][0]/changed[i][2] + width/2, changed[i][1]/changed[i][2] + height/2), 100/changed[i][2])
+        #pygame.draw.circle(Screen, (255, 255, 255), (100*cx + width/2, 100*sx + height/2), 1)
+        #pygame.draw.circle(Screen, (255, 255, 255), (changed[], (changed[0][2]*sx)/2 + height), 1)
         #print(changed[0][2])
         #print(changed[0][1])
         
         #print(f"x: {changed[0][0]/changed[0][2] + width/2}")
         #print(f"y: {changed[0][1]/changed[0][2] + height/2}")
         #pygame.draw.line(Screen, (255, 255, 255), (changed[1][0]/changed[1][2] + width/2, changed[1][1]/changed[1][2] + height/2), (changed[2][0]/changed[2][2] + width/2, changed[2][1]/changed[2][2] + height/2))
-        #pygame.draw.line(Screen, (255, 255, 255), (changed[i][0]/changed[i][2] + width/2, changed[i][1]/changed[i][2] + height/2), (changed[(i+1)%len(changed)][0]/changed[(i+1)%len(changed)][2] + width/2, changed[(i+1)%len(changed)][1]/changed[(i+1)%len(changed)][2] + height/2))
+        pygame.draw.line(Screen, (255, 255, 255), (changed[i][0]/changed[i][2] + width/2, changed[i][1]/changed[i][2] + height/2), (changed[(i+1)%len(changed)][0]/changed[(i+1)%len(changed)][2] + width/2, changed[(i+1)%len(changed)][1]/changed[(i+1)%len(changed)][2] + height/2))
         
         
 
@@ -194,4 +195,3 @@ while True:
 
     pygame.display.update()
 #code is still in progress lol thats why it seems a bit messy. im new to matrices so bear with me
-#HAHA debugging hell be like
