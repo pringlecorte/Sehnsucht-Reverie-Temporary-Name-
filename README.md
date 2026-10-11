@@ -39,6 +39,7 @@ As you may have noticed, i put a 3D file in there. no thats not the final cuz i 
 Altho the only thing that the ai helped me with was mostly in the main matrice math. i did do the transformation (except the rotation), point mapping, line drawing (except for the (i+1)%len(points) part cuz lists arent my strong core)
 
 ye no screw this i aint doing matrices and this typa shi, i keep seeing chicken wings when i wanna see acube. im stcikign with 2.5D
+...but would rio futaba be happy if i quit? absolutely not. nvm bro im going back to 3d but im using 2.5d for this game
 
 <img width="808" height="609" alt="image" src="https://github.com/user-attachments/assets/86b0522c-9f9d-4b7e-b547-c512d9813daf" />
 #v3
