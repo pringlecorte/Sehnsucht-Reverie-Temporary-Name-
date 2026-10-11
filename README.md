@@ -36,7 +36,7 @@ HELL YE I MANAGED TO TAME THE BUG (me drawing hello with the wall drawer)
 
 
 As you may have noticed, i put a 3D file in there. no thats not the final cuz i asked an AI to help me out. thats my learning process. i usually copy over or ask help from external soruces to see the base code and when i finally understand the core logic, i tend to do it  myself with no external help and even sprinkle in some parts of me in my code lol.
-Altho the only thing that the ai helped me with was mostly in the main matrice math. i did do the transformation, point mapping, line drawing (except for the (i+1)%len(points) part cuz lists arent my strong core)
+Altho the only thing that the ai helped me with was mostly in the main matrice math. i did do the transformation (except the rotation), point mapping, line drawing (except for the (i+1)%len(points) part cuz lists arent my strong core)
 <img width="808" height="609" alt="image" src="https://github.com/user-attachments/assets/86b0522c-9f9d-4b7e-b547-c512d9813daf" />
 #v3
 Central themes ill PROLLY base on
