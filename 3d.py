@@ -71,23 +71,23 @@ move = rotation @ translation
 
 def shift(x, y, z):     
     if wankel.is_pressed("up"):
-        y = -100
+        y -= 100
 
     elif wankel.is_pressed("down"):
-        y = 100
+        y += 100
 
     if wankel.is_pressed("left"):
-        x = -100
+        x -= 100
 
     elif wankel.is_pressed("right"):
-        x = 100
+        x += 100
 
     if wankel.is_pressed("q"):
         #smaller
-        z = 1
+        z += 1
 
     elif wankel.is_pressed("e"):
-        z = -1
+        z -= 1
         #bigger
         
 
@@ -173,7 +173,7 @@ while True:
     for i in range(len(original)):
 
 
-        changed[i] = move @ changed[i]
+        changed[i] = move @ original[i]
         #print(move)
         #print(changed[0])
         
