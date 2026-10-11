@@ -35,6 +35,8 @@ p5 = moonpie.array([-1000, -1000, 10, 1])
 p6 = moonpie.array([1000, -1000, 10, 1])
 p7 = moonpie.array([1000, 1000, 10, 1])
 p8 = moonpie.array([-1000, 1000, 10, 1])
+original = [p1, p4, p3, p2, p1, p2, p6, p7, p3, p7, p8, p4, p8, p5, p6, p5]
+changed = [p1, p4, p3, p2, p1, p2, p6, p7, p3, p7, p8, p4, p8, p5, p6, p5]
 points = [p1, p4, p3, p2, p1, p2, p6, p7, p3, p7, p8, p4, p8, p5, p6, p5]
 
 
@@ -55,48 +57,53 @@ movez = moonpie.array(
      [0, 0, 1, 0],
      [0, 0, 0, 1]])
 
-move = movez @ movey @ movex
 
-def shift(x, y, z, p):     
+
+def shift(x, y, z):     
     if wankel.is_pressed("up"):
-        y = -10
+        y = -100
 
     elif wankel.is_pressed("down"):
-        y = 10
+        y = 100
 
     if wankel.is_pressed("left"):
-        x = -10
+        x = -100
 
     elif wankel.is_pressed("right"):
-        x = 10
+        x = 100
 
     if wankel.is_pressed("q"):
         #smaller
         z = 1
 
     elif wankel.is_pressed("e"):
+        z = -1
         #bigger
-        if p[2] > 1: 
-            z = -1
+        
 
     return x, y, z
 
-def rotate(x, y):
-    global angle
+def rotate(ax, ay, az):
+    ax, ay, az = 0, 0, 0
     if wankel.is_pressed("a"):
-        angle -= 5
+        ax = -5
 
     elif wankel.is_pressed("d"):
-        angle += 5
+        ax = 5
 
     if wankel.is_pressed("w"):
-        angle -= 5
+        ay = -5
 
     elif wankel.is_pressed("s"):
-        y += math.sin(angle)  
-        angle += 5  
+        ay = 5
 
-    return x, y
+    if wankel.is_pressed("z"):
+        az = -5
+
+    elif wankel.is_pressed("x"):
+        az = 5
+
+    return ax, ay, az
 
 while True:
     refresh.tick(RefreshRate)
@@ -115,7 +122,24 @@ while True:
 
     x_offset = y_offset = z_offset = 0
     #x_rotate, y_rotate = math.cos(0), math.sin(0)
+    anglex, angley, anglez = rotate(anglex, angley, anglez)
 
+    cx, sx = math.cos(anglex), math.sin(anglex)
+    cy, sy = math.cos(angley), math.sin(angley)
+    cz, sz = math.cos(anglez), math.sin(anglez)
+
+    movex[1][1], movex[1][2], movex[2][1], movex[2][2] = cx, -sx, sx, cx
+    movey[0][0], movey[0][2], movey[2][0], movey[2][2] = cy, sy, -sy, cy
+    movez[0][0], movez[0][1], movez[1][0], movez[1][1] = cz, -sz, sz, cz 
+
+    move = movez @ movey @ movex
+        
+        
+    x_offset, y_offset, z_offset = shift(x_offset, y_offset, z_offset)
+
+    move[0][3] = x_offset
+    move[1][3] = y_offset
+    move[2][3] = z_offset
     
 
 
@@ -125,25 +149,22 @@ while True:
     #     [s, c, 0, y_offset],
     #     [0, 0, 1, z_offset],
     #     [0, 0, 0, 1]])
-    
-    for i in range(len(points)):
-        x_offset, y_offset, z_offset = shift(x_offset, y_offset, z_offset, points[i])
-        #x_rotate, y_rotate = rotate(x_rotate, y_rotate)
-        move[0][3] = x_offset
-        move[1][3] = y_offset
-        move[2][3] = z_offset
 
-        #move[0][0], move[0][1] = x_rotate, -y_rotate
-        #move[1][0], move[1][1] = y_rotate, x_rotate 
+    for i in range(len(original)):
 
-        #print(x_rotate)
-        #pygame.draw.circle(Screen, (255, 255, 255), (points[i][0]/points[i][2] + width/2, points[i][1]/points[i][2] + height/2), 100/points[i][2])
+
+        changed[i] = move @ changed[i]
+        print(move)
+        #print(changed[0])
+        
+        pygame.draw.circle(Screen, (255, 255, 255), (changed[0][0]/changed[0][2] + width/2, changed[0][1]/changed[0][2] + height/2), 100/changed[0][2])
         
 
-        #pygame.draw.line(Screen, (255, 255, 255), (points[1][0]/points[1][2] + width/2, points[1][1]/points[1][2] + height/2), (points[2][0]/points[2][2] + width/2, points[2][1]/points[2][2] + height/2))
-        pygame.draw.line(Screen, (255, 255, 255), (points[i][0]/points[i][2] + width/2, points[i][1]/points[i][2] + height/2), (points[(i+1)%len(points)][0]/points[(i+1)%len(points)][2] + width/2, points[(i+1)%len(points)][1]/points[(i+1)%len(points)][2] + height/2))
+        #pygame.draw.line(Screen, (255, 255, 255), (changed[1][0]/changed[1][2] + width/2, changed[1][1]/changed[1][2] + height/2), (changed[2][0]/changed[2][2] + width/2, changed[2][1]/changed[2][2] + height/2))
+        #pygame.draw.line(Screen, (255, 255, 255), (changed[i][0]/changed[i][2] + width/2, changed[i][1]/changed[i][2] + height/2), (changed[(i+1)%len(changed)][0]/changed[(i+1)%len(changed)][2] + width/2, changed[(i+1)%len(changed)][1]/changed[(i+1)%len(changed)][2] + height/2))
+        
+        
 
-        #points[i] = move @ points[i]
 
 
     pygame.display.update()
