@@ -43,6 +43,8 @@ ye no screw this i aint doing matrices and this typa shi, i keep seeing chicken 
 did miku nakano stop studying when she got a low score in her tests??
 did kaede stop studying even when she knew she would have a hard time because of her love for sakuta and will to do what panda kaede wanted??
 does one stop pushing when the poop is close??
+would rio futaba be proud of me for wasting my time coding something i wont finish?? 
+
 
 <img width="808" height="609" alt="image" src="https://github.com/user-attachments/assets/86b0522c-9f9d-4b7e-b547-c512d9813daf" />
 #v3
