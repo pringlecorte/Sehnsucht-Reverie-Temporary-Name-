@@ -40,6 +40,9 @@ Altho the only thing that the ai helped me with was mostly in the main matrice m
 
 ye no screw this i aint doing matrices and this typa shi, i keep seeing chicken wings when i wanna see acube. im stcikign with 2.5D
 ...but would rio futaba be happy if i quit? absolutely not. nvm bro im going back to 3d but im using 2.5d for this game
+did miku nakano stop studying when she got a low score in her tests??
+did kaede stop studying even when she knew she would have a hard time because of her love for sakuta and will to do what panda kaede wanted??
+does one stop pushing when the poop is close??
 
 <img width="808" height="609" alt="image" src="https://github.com/user-attachments/assets/86b0522c-9f9d-4b7e-b547-c512d9813daf" />
 #v3
