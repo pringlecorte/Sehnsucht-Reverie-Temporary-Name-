@@ -70,9 +70,9 @@ class Player:
 
 
         if keys.is_pressed(self.keyup) and self.widtha > self.widthb:
-            self.futurey, self.futurez = shrink(self.y, self.z, self.screen_width, self.originalz, self.original_dist_cent)
+            self.futurey, self.futurez, self.basey = shrink(self.y, self.z, self.basey)
+
             self.y, self.z = self.futurey, self.futurez
-            self.basey -= 1
             self.min_thresh, self.max_thresh = shrink_thresholds(self.min_thresh, self.max_thresh, self.z)
             
             
@@ -81,15 +81,16 @@ class Player:
 
 
         elif keys.is_pressed(self.keydown) and self.z < 5:
-            self.futurey, self.futurez = grow(self.y, self.z, self.screen_width, self.originalz, self.original_dist_cent)
+            self.futurey, self.futurez, self.basey = grow(self.y, self.z, self.basey)
             self.y, self.z = self.futurey, self.futurez
-            self.basey += 1
+        
 
             #thresold
             #self.min_thresh, self.max_thresh = shrink(self.min_thresh, self.y, self.z, self.screen_width, self.originalz, self.original_dist_cent)[0], shrink(self.max_thresh, self.y, self.z, self.screen_width, self.originalz, self.original_dist_cent)[0]
             self.min_thresh, self.max_thresh = grow_thresholds(self.min_thresh, self.max_thresh, self.z)
             #print(self.original_dist_cent)
         #print(self.z)
+
         self.min_thresh = max(0, self.min_thresh)
         self.max_thresh = min(self.screen_width, self.max_thresh)
 
@@ -164,6 +165,7 @@ class Player:
             pass
     
     def math(self, Itsuki):
+
         if self.jump:            
             if self.y < self.basey:
                 self.futurey -= self.y_vel * self.z
