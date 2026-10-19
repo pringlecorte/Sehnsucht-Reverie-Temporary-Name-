@@ -1,9 +1,9 @@
 import pygame
 import random
-from resize import grow, shrink
+from resize import grow, shrink, grow_thresholds, shrink_thresholds
 
 class QuintessentialQuintuplets():
-        def __init__(self, x, y, z, responsiveness, thresholdsx, thresholdsz, speed, acceleration, R, G, B, Screen, width, height, widtho=None, heighto=None, tomimic=None, traits=None,):
+        def __init__(self, x, y, z, responsiveness, thresholdsx, thresholdsz, speed, acceleration, R, G, B, Screen, width, height, stagewidth, widtho=None, heighto=None, tomimic=None, traits=None,):
             self.traits = traits if traits is not None else {}
 
             self.shy = self.traits.get("shy", False)
@@ -73,6 +73,7 @@ class QuintessentialQuintuplets():
             self.screen_width = width
             self.ScreenDisplay = Screen
             self.screen_height = height
+            self.stage = stagewidth
 
             self.jump = False
             self.maxjumph = 8
@@ -81,24 +82,28 @@ class QuintessentialQuintuplets():
             self.basey = self.y
             self.basez = self.z
 
+            self.min_thresh = self.screen_width/2 - self.stage/2
+            self.max_thresh = self.screen_width/2 + self.stage/2
+
             self.meatbun = None
             self.doneating = False
 
             self.summon = False
+            
+    
         def simplicityatitsfinest(self, obstacle):
-                    for obs in obstacle:
-                                if (obs.z - 0.1 <= self.futurez <= obs.z + 0.1) and (obs.x <= self.futurex <= obs.x + obs.widtha):
-                                        self.x1 = abs(self.x - obs.x)
-                                        self.x2 = abs(self.x - (obs.x + obs.widtha))
+            for obs in obstacle:
+                if (obs.z - 0.1 <= self.futurez <= obs.z + 0.1) and (obs.x <= self.futurex <= obs.x + obs.widtha):
+                    self.x1 = abs(self.x - obs.x)
+                    self.x2 = abs(self.x - (obs.x + obs.widtha))
 
-                                        if self.x1 < self.x2:
-                                            self.dx = obs.x - 10
-                                        else:   
-                                            self.dx = obs.x + obs.widtha + 10
-
-                                        self.futurex, self.futurey, self.futurez = self.x, self.y, self.z
+                    if self.x1 < self.x2:
+                        self.dx = obs.x - 10
+                    else:   
+                        self.dx = obs.x + obs.widtha + 10
+                    self.futurex, self.futurey, self.futurez = self.x, self.y, self.z
                         
-                    self.x, self.y, self.z = self.futurex, self.futurey, self.futurez
+                self.x, self.y, self.z = self.futurex, self.futurey, self.futurez
             
 
 
@@ -111,15 +116,19 @@ class QuintessentialQuintuplets():
             #print(self.dx)
             if not (self.dz - 0.1  <= self.z <= self.dz + 0.1):
                 if (self.z - self.dz < 0):
-                    self.futurex, self.futurey, self.futurez = grow(self.x, self.y, self.z)
-                    self.basey += 1.5* (self.z/5)
+                    self.futurey, self.futurez, self.basey= grow(self.y, self.z, self.basey)
+            
                     self.simplicityatitsfinest(obstacle)
+
+                    self.min_thresh, self.max_thresh = grow_thresholds(self.min_thresh, self.max_thresh, self.z)
                             
 
                 elif (self.z - self.dz >= 0):
-                    self.futurex, self.futurey, self.futurez = shrink(self.x, self.y, self.z)
-                    self.basey -= 1.5 * (self.z/5)
+                    self.futurey, self.futurez = shrink(self.y, self.z, self.basey)
+        
                     self.simplicityatitsfinest(obstacle)
+
+                    self.min_thresh, self.max_thresh = shrink_thresholds(self.min_thresh, self.max_thresh, self.z)
 
 
             if not(self.dx - 1 <= self.x <= self.dx + 1):
@@ -143,11 +152,11 @@ class QuintessentialQuintuplets():
 
             self.x += self.velocity  * self.z
 
-            if self.x < 0:
-                self.x = self.screen_width
+            if self.x < self.min_thresh:
+                self.futurex = self.max_thresh
 
-            elif self.x > self.screen_width:
-                self.x = 0
+            if self.x > self.max_thresh:
+                self.futurex = self.min_thresh
     
         def personality_intercept(self, player, eatsuki):
             self.meatbun = eatsuki if eatsuki is not None else 0
@@ -180,12 +189,12 @@ class QuintessentialQuintuplets():
                     self.x += ((player.x - self.x) * self.z)/(self.maxjumph*2/(self.maxjumph/20))
                     
                     if self.z < player.z:
-                        self.x, self.y, self.z = grow(self.x, self.y, self.z)
+                        self.x, self.y, self.z = grow(self.x, self.y, self.z, self.screen_width)
                         self.basey += 1.5* (self.z/5)
                         
 
                     elif self.z > player.z:
-                        self.x, self.y, self.z = shrink(self.x, self.y, self.z)
+                        self.x, self.y, self.z = shrink(self.x, self.y, self.z, self.screen_width)
                         self.basey -= 1.5* (self.z/5)
                 #print('hello')
 
@@ -243,9 +252,11 @@ class QuintessentialQuintuplets():
                     self.x, self.y, self.z, self.responsiveness, self.thresholdsx, self.thresholdsz, self.speed, self.acceleration, self.R, self.G, self.B =   self.newx, self.newy, self.newz, self.newresponsiveness, self.newthresholdsx, self.newthresholdsz, self.newspeed, self.newacceleration, self.newR, self.newG, self.newB           
                 if self.Loopingtherooms % 10000 >= 1000:
                     self.x, self.y, self.z, self.responsiveness, self.thresholdsx, self.thresholdsz, self.speed, self.acceleration, self.R, self.G, self.B = self.statex, self.statey, self.statez, self.bresponsiveness, self.bthresholdsx, self.bthresholdsz, self.bspeed, self.bacceleration, self.bR, self.bG, self.bB
-            print(self.Loopingtherooms)
         
         def render(self):
+            self.finalrenderx = self.x + self.widtha/2
+            self.finalrendery = self.y + self.heighta/2
+
             self.newR = min(self.R * (self.z/5), 255)
             self.newG = min(self.G * (self.z/5), 255)
             self.newB = min(self.B * (self.z/5), 255)
@@ -262,6 +273,7 @@ class QuintessentialQuintuplets():
             #print(f"R {self.R}")
             #print(f"G {self.G}")
             #print(f"B {self.B}")
-            pygame.draw.rect(self.ScreenDisplay, (self.newR, self.newG, self.newB), (self.x, self.y - self.heighta, self.widtha, self.heighta))
+            pygame.draw.rect(self.ScreenDisplay, (self.newR, self.newG, self.newB), (self.finalrenderx, self.finalrendery, self.widtha, self.heighta))
+            self.hitbox = pygame.Rect(self.x, self.y - self.heighta, self.widtha, self.heighta)
 
             self.Loopingtherooms += 1
