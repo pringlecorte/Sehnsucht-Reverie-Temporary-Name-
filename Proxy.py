@@ -5,10 +5,10 @@ import keyboard as keys
 import pyautogui as gangalicious
 
 
-from resize import shrink, grow
+from resize import shrink, grow, grow_thresholds, shrink_thresholds
 
 class Player:
-    def __init__(self, width, height, Screen, up, down, left, right, jump, run, crouch, drop):
+    def __init__(self, width, height, stage, Screen, up, down, left, right, jump, run, crouch, drop):
         #screen width, height, Screen
         self.x = width/3
         self.y = height/2
@@ -33,6 +33,7 @@ class Player:
         self.screen_width = width
         self.screen_height = height
         self.ScreenDisplay = Screen
+        self.stage = stage
 
         self.velocity = 0
 
@@ -49,6 +50,17 @@ class Player:
 
         self.isfood = False
         self.foodwhereabouts = {}
+
+        self.finalrenderx = 0
+
+        self.originalz = 1
+        self.original_dist_cent = 0
+
+        self.min_thresh = self.screen_width/2 - self.stage/2
+        self.max_thresh = self.screen_width/2 + self.stage/2
+
+
+
     def controls(self):
         self.Right = False
 
@@ -56,23 +68,35 @@ class Player:
         self.heighta = self.heightb*self.z 
 
 
+
         if keys.is_pressed(self.keyup) and self.widtha > self.widthb:
-            self.futurex, self.futurey, self.futurez = shrink(self.x, self.y, self.z)
-            self.x, self.y, self.z = self.futurex, self.futurey, self.futurez
-            self.basey -= 1.5 * (self.z/5)
+            self.futurey, self.futurez = shrink(self.y, self.z, self.screen_width, self.originalz, self.original_dist_cent)
+            self.y, self.z = self.futurey, self.futurez
+            self.basey -= 1
+            self.min_thresh, self.max_thresh = shrink_thresholds(self.min_thresh, self.max_thresh, self.z)
+            
+            
+            #threshold
+            #self.min_thresh, self.max_thresh = grow(self.min_thresh, self.y, self.z, self.screen_width, self.originalz, self.original_dist_cent)[0], grow(self.max_thresh, self.y, self.z, self.screen_width, self.originalz, self.original_dist_cent)[0]
 
 
-        if keys.is_pressed(self.keydown) and self.z < 5:
-            self.futurex, self.futurey, self.futurez = grow(self.x, self.y, self.z)
-            self.x, self.y, self.z = self.futurex, self.futurey, self.futurez
-            self.basey += 1.5* (self.z/5)
+        elif keys.is_pressed(self.keydown) and self.z < 5:
+            self.futurey, self.futurez = grow(self.y, self.z, self.screen_width, self.originalz, self.original_dist_cent)
+            self.y, self.z = self.futurey, self.futurez
+            self.basey += 1
 
+            #thresold
+            #self.min_thresh, self.max_thresh = shrink(self.min_thresh, self.y, self.z, self.screen_width, self.originalz, self.original_dist_cent)[0], shrink(self.max_thresh, self.y, self.z, self.screen_width, self.originalz, self.original_dist_cent)[0]
+            self.min_thresh, self.max_thresh = grow_thresholds(self.min_thresh, self.max_thresh, self.z)
+            #print(self.original_dist_cent)
         #print(self.z)
+        self.min_thresh = max(0, self.min_thresh)
+        self.max_thresh = min(self.screen_width, self.max_thresh)
 
         if keys.is_pressed(self.keyleft):
             self.Right = False
             if int(self.velocity) > 0:
-                self.velocity -= self.velocity/4
+                self.velocity -= self.velocity/5
 
             elif self.velocity >= -self.speed:
                 self.velocity -= 0.025
@@ -85,6 +109,7 @@ class Player:
             else:
                 if self.velocity < -self.speed:
                     self.velocity += 0.1
+
         elif keys.is_pressed(self.keyright):
             self.Right = True
 
@@ -157,11 +182,11 @@ class Player:
             #print(f"vely{self.y_vel}")
         #print(f"z:{self.z}")
 
-        if self.x < 0:
-            self.futurex = self.screen_width
+        if self.x < self.min_thresh:
+            self.futurex = self.max_thresh
 
-        elif self.x > self.screen_width:
-            self.futurex = 0
+        if self.x > self.max_thresh:
+            self.futurex = self.min_thresh
 
         self.x = self.futurex
     
@@ -179,6 +204,10 @@ class Player:
             self.velocity *= -(10*abs(Itsuki.velocity) + 3)
 
     def render(self):
+        #print(self.y)
+        self.finalrenderx = self.x - self.widtha/2
+        self.finalrendery = self.y - self.heighta/2
+
         self.R = 0
         self.G = 30 * self.z
         self.B = 30 * self.z
@@ -189,8 +218,12 @@ class Player:
             self.B = 200
 
 
-        pygame.draw.rect(self.ScreenDisplay, (self.R, self.G, self.B), (self.x, self.y - self.heighta, self.widtha, self.heighta))
+        pygame.draw.rect(self.ScreenDisplay, (self.R, self.G, self.B), (self.finalrenderx, self.finalrendery, self.widtha, self.heighta))
+        pygame.draw.circle(self.ScreenDisplay, (255,255,255), (self.x, self.y), 2)
 
+        pygame.draw.circle(self.ScreenDisplay, (255, 255, 255), (self.min_thresh, self.y), 2)
+        pygame.draw.circle(self.ScreenDisplay, (255, 255, 255), (self.max_thresh, self.y), 2)
+        #print(self.max_thresh)
 
-
+print("saved. but you shouldnt run the code from here you idiot")
 
