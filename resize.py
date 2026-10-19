@@ -1,26 +1,22 @@
-import math
-def shrink(y, z):
-    #print(f"Before {x}")
+def shrink(y, z, base_y):
+
     z -= 0.05 * (z/5)
     y -= 1 * (z/5)
+    base_y -= 1 * (z/5)
 
-    #print(y)
-    #print(f"dist from center {x}")
-    return y, z
+    return y, z, base_y
 
-def grow(y, z):
-    #print(f"Before {x}")
+def grow(y, z, base_y):
+
     z += 0.05 * (z/5)
     y += 1 * (z/5)
-    
-    #print(y)
+    base_y += 1 * (z/5)
 
-    #print(f"dist from center {x}")
-    return y, z
+    return y, z, base_y
 
 def grow_thresholds(min_val, max_val, current_z):
     #45 degrees right triangle
-    delta = abs(1 - current_z)
+    delta = current_z - 1
     min_val -= delta
     max_val += delta
 
@@ -29,9 +25,8 @@ def grow_thresholds(min_val, max_val, current_z):
 
 def shrink_thresholds(min_val, max_val, current_z):
     #45 degrees right triangle
-    delta = abs(1 - current_z)
+    delta = current_z - 1
     min_val += delta
     max_val -= delta
-
 
     return min_val, max_val
