@@ -130,6 +130,10 @@ what if i make it start with 2 kids in an intense snowball fight and then oneof 
 
 smth like the kid thoguth the other was just sleeping or smth
 
+i lowk had a dark dream, it was with me in it during vacation but a vacation i never had and i went swimming but then for some reason the pool had a roof so i had to be careful. fast forward, my sister (who i will change to a ffriend for more flexibility of the story (possibly), apperently had to get rushed to the hospital cuz she experienced "the smth smth i forgot what my dream said". i think it was cuz she bumped her head onto the roof or sum thin
+
+i also have another idea based from my old idea wherein the protag developed cancer and him and his friend had to part ways. fast forward, the guy recovered only for the world to forget him (spoiler: he's dead)
+
 
 
 
