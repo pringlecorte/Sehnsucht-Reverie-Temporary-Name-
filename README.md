@@ -139,9 +139,9 @@ i also have another idea based from my old idea wherein the protag developed can
 
 HOLDON HOLDON. I HAVE A NEW IDEA. I THINK IMMA CALL THIS PROJECT "Amidst the Logical Twin Leaves" HAHAHAHAHAHAHAHA IM A GENIUS TRY TO GUESS WHY
 
-"The Forgotten, Hanging Robe, it's linen brushing with the Cherry Blossom Tree" or "Modest of the Robes in Cherry Blossom " (if matching the first one's stle)
+"The Forgotten, Hanging Robe, it's linen brushing with the Cherry Blossom Tree" or "Modest of the Robes on Cherry Blossom Islabd" (if matching the first one's stle)
 
-"Sketches of your shadow from ourfaded marriage"
+"Sketches of your shadow from ourfaded marriage" or "Imaginary Echoes from a Withering Revelry"
 
 "The Consummate Sigh of the Flowing Shoreline"
 
