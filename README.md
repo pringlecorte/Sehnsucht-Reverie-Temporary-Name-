@@ -137,6 +137,7 @@ i also have another idea based from my old idea wherein the protag developed can
 
 
 
+HOLDON HOLDON. I HAVE A NEW IDEA. I THINK IMMA CALL THIS PROJECT "Amidst the Logical Twin Leaves" HAHAHAHAHAHAHAHA IM A GENIUS TRY TO GUESS WHY
 
 
 
