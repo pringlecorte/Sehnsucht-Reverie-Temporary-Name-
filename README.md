@@ -135,6 +135,8 @@ i lowk had a dark dream, it was with me in it during vacation but a vacation i n
 i also have another idea based from my old idea wherein the protag developed cancer and him and his friend had to part ways. fast forward, the guy recovered only for the world to forget him (spoiler: he's dead)
 
 
+nvm for the story im gonna go back to my original cuz i was in the shower and thought i was being too harsh and when i finally stopped being too harsh, i thought my original was actually good (link below to see progress so far)
+https://docs.google.com/document/d/1bhFwUGkF9BkT_on5ht2UCW843M1WTV_pbJotXRMY1Uc/edit?usp=sharing
 
 
 HOLDON HOLDON. I HAVE A NEW IDEA. I THINK IMMA CALL THIS PROJECT "Amidst the Logical Twin Leaves" HAHAHAHAHAHAHAHA IM A GENIUS TRY TO GUESS WHY
@@ -144,6 +146,8 @@ HOLDON HOLDON. I HAVE A NEW IDEA. I THINK IMMA CALL THIS PROJECT "Amidst the Log
 "Sketches of your shadow from ourfaded marriage" or "Imaginary Echoes from a Withering Revelry" or "Illusions of Your Touch from Your Forgotten Committal" or "Sketch the Memories of Our Marriage"
 
 "The Consummate Sigh of the Flowing Shoreline" or "Consummate Sigh of the Flowing Shoreline" or "Sighs of a Flowing Shoreline"
+
+
 
 
 
