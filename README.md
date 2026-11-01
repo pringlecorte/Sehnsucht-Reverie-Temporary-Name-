@@ -136,8 +136,7 @@ i also have another idea based from my old idea wherein the protag developed can
 
 
 nvm for the story im gonna go back to my original cuz i was in the shower and thought i was being too harsh and when i finally stopped being too harsh, i thought my original was actually good (link below to see progress so far)
-https://docs.google.com/document/d/1bhFwUGkF9BkT_on5ht2UCW843M1WTV_pbJotXRMY1Uc/edit?usp=sharing
-
+[https://docs.google.com/document/d/1bhFwUGkF9BkT_on5ht2UCW843M1WTV_pbJotXRMY1Uc/edit?usp=sharing](https://docs.google.com/document/d/1bhFwUGkF9BkT_on5ht2UCW843M1WTV_pbJotXRMY1Uc/edit?usp=sharing)
 
 HOLDON HOLDON. I HAVE A NEW IDEA. I THINK IMMA CALL THIS PROJECT "Amidst the Logical Twin Leaves" HAHAHAHAHAHAHAHA IM A GENIUS TRY TO GUESS WHY
 
